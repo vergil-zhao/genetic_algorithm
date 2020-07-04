@@ -33,8 +33,8 @@ class TestSelection(unittest.TestCase):
         print([c.fitness for c in roulette_wheel(self.chromosomes, 5)])
 
     @test
-    def test_tournament(self):
-        print([c.fitness for c in tournament(self.chromosomes, 5)])
+    def test_fitness_tournament(self):
+        print([c.fitness for c in fitness_tournament(self.chromosomes, 5)])
 
     @test
     def test_rank(self):

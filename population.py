@@ -7,7 +7,7 @@ from collections import Iterable
 from math import floor
 
 from genetic import FloatItem, Chromosome
-from operators.selection import random_pick
+from operators.selection import rank
 from utils import prettify_matrix
 
 
@@ -21,7 +21,7 @@ class Population(Iterable):
             mutation_rate: float = 0.05,
             elitism: int = 0,
             max_gen: int = 100,
-            selection: Callable[[List[Chromosome], int], List[Chromosome]] = random_pick
+            selection: Callable[[List[Chromosome], int], List[Chromosome]] = rank
     ):
         """
         Create a GA instance
