@@ -13,7 +13,7 @@ def single_point(a: List[float], b: List[float]) -> (List[float], List[float]):
     point = random.randint(1, len(a) - 1)
     return (
         a[:point] + b[point:],
-        a[:point] + b[point:]
+        b[:point] + a[point:]
     )
 
 
