@@ -8,6 +8,7 @@ from math import floor
 
 from genetic import FloatItem, Chromosome
 from operators.selection import rank
+from operators.elimination import fitness_tournament
 from utils import prettify_matrix
 
 
@@ -21,7 +22,8 @@ class Population(Iterable):
             mutation_rate: float = 0.05,
             elitism: int = 0,
             max_gen: int = 100,
-            selection: Callable[[List[Chromosome], int], List[Chromosome]] = rank
+            selection: Callable[[List[Chromosome], int], List[Chromosome]] = rank,
+            elimination: Callable[[List[Chromosome], int], None] = fitness_tournament
     ):
         """
         Create a GA instance
@@ -54,16 +56,25 @@ class Population(Iterable):
         self.max_gen = max_gen
         self.generations = 0
         self.selection = selection
+        self.elimination = elimination
 
         self.chromosomes: List[Chromosome] = []
         self.offsprings: List[Chromosome] = []
         self.generate_population()
 
+    # TODO: Real-coded, Binary
+    @staticmethod
+    def encode(value):
+        return value
+
+    @staticmethod
+    def decode(chromosome):
+        return chromosome
+
     def generate_population(self):
         for i in range(self.size):
             self.chromosomes.append(Chromosome(pattern=self.gene_pattern))
 
-    # TODO: different way to choose individuals
     def create_mating_pool(self) -> List[Chromosome]:
         return self.selection(self.chromosomes, self.pool_size)
 
@@ -71,11 +82,8 @@ class Population(Iterable):
         for item in self.chromosomes:
             item.age += 1
 
-    # TODO: different way to choose individuals to die out
     def eliminate(self):
-        for i in range(self.pool_size):
-            players = self.sample(3)  # TODO: k will be a parameter of the operator
-            min(players).is_alive = False
+        self.elimination(self.chromosomes, self.pool_size)
 
     def replace(self):
         i = 0
@@ -97,15 +105,6 @@ class Population(Iterable):
 
     def get_result(self):
         return [self.decode(p) for p in self.chromosomes]
-
-    # TODO: Real-coded, Binary
-    @staticmethod
-    def encode(value):
-        return value
-
-    @staticmethod
-    def decode(chromosome):
-        return chromosome
 
     # TODO: Different way to apply crossover, Single Point, SBC, etc.
     def crossover(self):

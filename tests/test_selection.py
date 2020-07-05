@@ -1,14 +1,8 @@
 import unittest
+import operators.selection as slc
 
-from operators.selection import *
 from genetic import Chromosome, FloatItem
-
-
-def test(func):
-    def wrapper(*args, **kwargs):
-        print(func.__name__)
-        func(*args, **kwargs)
-    return wrapper
+from utils import print_name
 
 
 class TestSelection(unittest.TestCase):
@@ -24,18 +18,18 @@ class TestSelection(unittest.TestCase):
         for i in range(10):
             self.chromosomes[i].fitness = i
 
-    @test
+    @print_name
     def test_random_pick(self):
-        print([c.fitness for c in random_pick(self.chromosomes, 5)])
+        print([c.fitness for c in slc.random_pick(self.chromosomes, 5)])
 
-    @test
+    @print_name
     def test_roulette_wheel(self):
-        print([c.fitness for c in roulette_wheel(self.chromosomes, 5)])
+        print([c.fitness for c in slc.roulette_wheel(self.chromosomes, 5)])
 
-    @test
+    @print_name
     def test_fitness_tournament(self):
-        print([c.fitness for c in fitness_tournament(self.chromosomes, 5)])
+        print([c.fitness for c in slc.fitness_tournament(self.chromosomes, 5)])
 
-    @test
+    @print_name
     def test_rank(self):
-        print([c.fitness for c in rank(self.chromosomes, 5)])
+        print([c.fitness for c in slc.rank(self.chromosomes, 5)])

@@ -1,8 +1,9 @@
 import random
+import operators.elimination as elm
 
 from unittest import TestCase
 from genetic import Chromosome, FloatItem
-from operators.elimination import *
+from utils import print_name
 
 
 class TestElimination(TestCase):
@@ -15,12 +16,12 @@ class TestElimination(TestCase):
 
         self.chromosomes = [Chromosome(pattern=pattern) for _i in range(10)]
 
-        for c in self.chromosomes:
-            c.age = random.randint(0, 100)
-            c.fitness = random.randint(0, 100)
+        for i, c in enumerate(self.chromosomes):
+            c.age = i
+            c.fitness = i
 
     def test_random_pick(self):
-        random_pick(self.chromosomes, 5)
+        elm.random_pick(self.chromosomes, 5)
 
         count = 0
         for item in self.chromosomes:
@@ -29,8 +30,9 @@ class TestElimination(TestCase):
 
         self.assertEqual(count, 5)
 
+    @print_name
     def test_fitness_tournament(self):
-        fitness_tournament(self.chromosomes, 5)
+        elm.fitness_tournament(self.chromosomes, 5)
 
         count = 0
         for item in self.chromosomes:
@@ -38,10 +40,11 @@ class TestElimination(TestCase):
                 count += 1
 
         self.assertEqual(count, 5)
-        print([item.fitness for item in self.chromosomes])
+        print([item.fitness for item in self.chromosomes if item.is_alive])
 
+    @print_name
     def test_age_tournament(self):
-        age_tournament(self.chromosomes, 5)
+        elm.age_tournament(self.chromosomes, 5)
 
         count = 0
         for item in self.chromosomes:
@@ -49,4 +52,4 @@ class TestElimination(TestCase):
                 count += 1
 
         self.assertEqual(count, 5)
-        print([item.age for item in self.chromosomes])
+        print([item.age for item in self.chromosomes if item.is_alive])

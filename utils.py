@@ -9,6 +9,13 @@ S = TypeVar('S')
 TOURNAMENT_SIZE = 3
 
 
+def print_name(func):
+    def wrapper(*args, **kwargs):
+        print(func.__name__)
+        func(*args, **kwargs)
+    return wrapper
+
+
 def prettify_matrix(matrix):
     s = [[str(e) for e in row] for row in matrix]
     lens = [max(map(len, col)) for col in zip(*s)]
