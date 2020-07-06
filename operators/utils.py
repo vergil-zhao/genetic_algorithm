@@ -6,8 +6,6 @@ from copy import deepcopy
 T = TypeVar('T')
 S = TypeVar('S')
 
-TOURNAMENT_SIZE = 3
-
 
 def print_name(func):
     def wrapper(*args, **kwargs):
@@ -49,7 +47,7 @@ def pick_from_wheel(items: List[T], wheel: List[S], size: int) -> List[T]:
     return pool
 
 
-def tournament(items: List[T], values: List[S], size: int) -> List[T]:
+def tournament(items: List[T], values: List[S], size: int, round_size: int = 3) -> List[T]:
     assert len(items) == len(values), 'items and values should have same size'
     assert size <= len(items), 'size could not be greater than items size'
 
@@ -58,10 +56,10 @@ def tournament(items: List[T], values: List[S], size: int) -> List[T]:
 
     pool = []
     for i in range(size):
-        if len(remain) < TOURNAMENT_SIZE:
+        if len(remain) < round_size:
             round_pool = remain
         else:
-            round_pool = random.sample(remain, TOURNAMENT_SIZE)
+            round_pool = random.sample(remain, round_size)
 
         max_index = round_pool[0]
         max_value = values[round_pool[0]]

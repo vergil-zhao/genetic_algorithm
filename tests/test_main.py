@@ -3,9 +3,9 @@ import statistics
 import math
 import matplotlib.pyplot as plt
 
-from population import Population
-from genetic import FloatItem
-from utils import print_name
+from ga.population import Population
+from ga.conf import FloatItem, Config
+from operators.utils import print_name
 
 
 def plot(gen, std, best, mean):
@@ -34,12 +34,17 @@ class TestMain(unittest.TestCase):
     def test_wave_func(self):
         def wave(x): return 5 * math.sin(3 * x) + ((x - 30) / 5) ** 2 + 10
 
-        p = Population(
+        def wave_fit(data):
+            self.assertGreaterEqual(data[0], 0)
+            self.assertLessEqual(data[0], 100)
+            return 100 / wave(data[0])
+
+        p = Population(Config(
             gene_pattern=[FloatItem(0, 100, 3)],
-            fit=lambda x: 100 / wave(x[0]),
+            fit=wave_fit,
             size=11,
             max_gen=500
-        )
+        ))
 
         gen = []
         std = []
@@ -55,12 +60,19 @@ class TestMain(unittest.TestCase):
     def test_rosenbrock_func(self):
         def rosenbrock(x, y): return 100 * (y - x ** 2) ** 2 + (1 - x) ** 2
 
-        p = Population(
+        def rosenbrock_fit(data):
+            self.assertGreaterEqual(data[0], -2)
+            self.assertLessEqual(data[0], 2)
+            self.assertGreaterEqual(data[1], -1)
+            self.assertLessEqual(data[1], 3)
+            return 1 / (rosenbrock(data[0], data[1]) + 0.001)
+
+        p = Population(Config(
             gene_pattern=[FloatItem(-2, 2, 8), FloatItem(-1, 3, 8)],
-            fit=lambda x: 1 / (rosenbrock(x[0], x[1]) + 0.001),
+            fit=rosenbrock_fit,
             size=11,
             max_gen=500
-        )
+        ))
 
         gen = []
         std = []

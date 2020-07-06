@@ -1,8 +1,9 @@
 import unittest
 import operators.selection as slc
 
-from genetic import Chromosome, FloatItem
-from utils import print_name
+from ga.genetic import Chromosome
+from ga.conf import Config, FloatItem
+from operators.utils import print_name
 
 
 class TestSelection(unittest.TestCase):
@@ -13,7 +14,7 @@ class TestSelection(unittest.TestCase):
             FloatItem(0, 10, 5)
         ]
 
-        self.chromosomes = [Chromosome(pattern=pattern) for _i in range(10)]
+        self.chromosomes = [Chromosome(Config(pattern, sum)) for _i in range(10)]
 
         for i in range(10):
             self.chromosomes[i].fitness = i

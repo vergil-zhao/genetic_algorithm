@@ -1,9 +1,9 @@
-import random
 import operators.elimination as elm
 
 from unittest import TestCase
-from genetic import Chromosome, FloatItem
-from utils import print_name
+from ga.genetic import Chromosome
+from ga.conf import Config, FloatItem
+from operators.utils import print_name
 
 
 class TestElimination(TestCase):
@@ -14,7 +14,7 @@ class TestElimination(TestCase):
             FloatItem(0, 10, 5)
         ]
 
-        self.chromosomes = [Chromosome(pattern=pattern) for _i in range(10)]
+        self.chromosomes = [Chromosome(Config(pattern, sum)) for _i in range(10)]
 
         for i, c in enumerate(self.chromosomes):
             c.age = i

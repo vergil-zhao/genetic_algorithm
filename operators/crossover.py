@@ -17,7 +17,7 @@ def single_point(a: List[float], b: List[float]) -> (List[float], List[float]):
     )
 
 
-def simple_blend(a: List[float], b: List[float]) -> (List[float], List[float]):
+def blend(a: List[float], b: List[float]) -> (List[float], List[float]):
     pass
 
 

@@ -1,15 +1,14 @@
 import random
 
 from typing import List
-from genetic import Chromosome
-from utils import create_wheel, pick_from_wheel, tournament
+from operators.utils import create_wheel, pick_from_wheel, tournament
 
 
-def random_pick(items: List[Chromosome], size: int) -> List[Chromosome]:
+def random_pick(items: List, size: int) -> List:
     return random.sample(items, size)
 
 
-def roulette_wheel(items: List[Chromosome], size: int) -> List[Chromosome]:
+def roulette_wheel(items: List, size: int) -> List:
     """
     :param items: list of chromosome, fitness value has to be positive
     :param size: the mating mating pool
@@ -22,11 +21,11 @@ def roulette_wheel(items: List[Chromosome], size: int) -> List[Chromosome]:
 TOURNAMENT_SIZE = 3
 
 
-def fitness_tournament(items: List[Chromosome], size: int) -> List[Chromosome]:
+def fitness_tournament(items: List, size: int) -> List:
     return tournament(items, [item.fitness for item in items], size)
 
 
-def rank(items: List[Chromosome], size: int) -> List[Chromosome]:
+def rank(items: List, size: int) -> List:
     """
     :param items: list of chromosome, fitness value has to be positive
     :param size: the mating mating pool
