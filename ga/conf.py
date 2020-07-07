@@ -4,7 +4,7 @@ from math import floor
 
 from operators.selection import rank
 from operators.elimination import fitness_tournament
-from operators.crossover import single_point
+from operators.crossover import sbx
 
 
 @dataclass
@@ -39,7 +39,7 @@ class Config:
             max_gen: int = 100,
             selection: Callable[[List, int], List] = rank,
             elimination: Callable[[List, int], None] = fitness_tournament,
-            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = single_point
+            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = sbx
     ):
         """
         Create a GA Config

@@ -19,12 +19,22 @@ def plot(gen, std, best, mean):
     return update
 
 
-def plot_ga(gen, std, best, mean):
+def plot_ga(title, gen, std, best, mean):
     fig, (std_gen, best_gen) = plt.subplots(2, 1, figsize=(5, 10), dpi=220)
+
     # std_gen.set_xlim(0, 100)
     # std_gen.set_ylim(0, 1)
+
     std_gen.plot(gen, std)
+    std_gen.set_title(title)
+    std_gen.set_xlabel('Number of Generation')
+    std_gen.set_ylabel('Standard Deviation')
+
     best_gen.plot(gen, best, gen, mean)
+    best_gen.set_xlabel('Number of Generation')
+    best_gen.set_ylabel('Fitness Value')
+
+    fig.suptitle(title, fontsize=16)
     plt.show()
 
 
@@ -51,10 +61,10 @@ class TestMain(unittest.TestCase):
         best = []
         mean = []
         p.evolve(plot(gen, std, best, mean))
-        best_ans = max(p.chromosomes)
+        best_ans = max(p.chromosomes).decode()
         print(f'BEST: {best_ans} VALUE: {wave(best_ans[0])}')
         print(p)
-        plot_ga(gen, std, best, mean)
+        plot_ga('Min(Wave Function)', gen, std, best, mean)
 
     @print_name
     def test_rosenbrock_func(self):
@@ -79,7 +89,8 @@ class TestMain(unittest.TestCase):
         best = []
         mean = []
         p.evolve(plot(gen, std, best, mean))
-        best_ans = max(p.chromosomes)
+        best_ans = max(p.chromosomes).decode()
         print(f'BEST: {best_ans} VALUE: {rosenbrock(best_ans[0], best_ans[1])}')
         print(p)
-        plot_ga(gen, std, best, mean)
+        plot_ga('Min(Rosenbrock Function)', gen, std, best, mean)
+

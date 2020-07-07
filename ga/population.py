@@ -52,9 +52,9 @@ class Population(Iterable):
 
     # TODO: add passively accept fitness value
     # TODO: scaling, add evolution pressure
-    def evaluate(self, individuals: List[Chromosome]):
-        for i in individuals:
-            i.fitness = self.config.fit(list(i.genes))
+    def evaluate(self, chromosomes: List[Chromosome]):
+        for i in chromosomes:
+            i.fitness = self.config.fit(list(i.decode()))
 
     def rescale_fitness(self):
         data = [item.fitness for item in self.chromosomes]
@@ -100,4 +100,4 @@ class Population(Iterable):
         return iter(self.chromosomes)
 
     def __repr__(self):
-        return prettify_matrix(self)
+        return prettify_matrix([c.decode() for c in self.chromosomes])
