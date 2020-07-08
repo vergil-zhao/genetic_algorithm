@@ -41,3 +41,12 @@ class TestUtils(unittest.TestCase):
             pool.sort(key=lambda a: a.property_1)
             for i in range(5):
                 self.assertNotEqual(pool[i].property_1, pool[i - 1].property_1)
+
+    def test_repair(self):
+        genes = [-0.1, 1.1, -1.2, 2.2]
+        repaired = utils.repair(genes)
+        expected = [0.9, 0.1, 0.8, 0.2]
+        self.assertEqual(len(genes), len(repaired))
+        for i in range(len(repaired)):
+            self.assertAlmostEqual(repaired[i], expected[i])
+

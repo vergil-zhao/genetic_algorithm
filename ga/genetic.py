@@ -4,6 +4,7 @@ import random
 
 from typing import List, Optional
 from collections import Iterable
+from operators.utils import repair
 
 from .conf import Config
 
@@ -29,9 +30,7 @@ class Chromosome(Iterable):
 
     # TODO: different distribution of random mutation
     def mutate(self):
-        for i in range(len(self.genes)):
-            if self.config.mutation_rate > random.random():
-                self.genes[i] = random.random()
+        self.genes = repair(self.config.mutation(self.genes))
 
     def decode(self) -> List[float]:
         # TODO: Linear/logarithmic map to 0 - 1
@@ -40,15 +39,10 @@ class Chromosome(Iterable):
             result.append(round(self.genes[i] * (item.end - item.start) + item.start, item.precision))
         return result
 
-    @staticmethod
-    def repair(genes: List[float]):
-        for i in range(len(genes)):
-            genes[i] %= 1
-
     # TODO: Different way to apply crossover, Blend, SBC, etc.
     def __add__(self, other: Chromosome) -> (Chromosome, Chromosome):
         a, b = self.config.crossover(self.genes, other.genes)
-        return Chromosome(self.config, self.repair(a)), Chromosome(self.config, self.repair(b))
+        return Chromosome(self.config, repair(a)), Chromosome(self.config, repair(b))
 
     def __gt__(self, other: Chromosome):
         return self.fitness > other.fitness

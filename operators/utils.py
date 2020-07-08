@@ -72,3 +72,10 @@ def tournament(items: List[T], values: List[S], size: int, round_size: int = 3) 
         remain.remove(max_index)
 
     return pool
+
+
+def repair(genes: List[float]) -> List[float]:
+    repaired = genes[:]
+    for i in range(len(repaired)):
+        repaired[i] %= 1
+    return repaired

@@ -5,6 +5,7 @@ from math import floor
 from operators.selection import rank
 from operators.elimination import fitness_tournament
 from operators.crossover import sbx
+from operators.mutation import random_mutate
 
 
 @dataclass
@@ -39,7 +40,8 @@ class Config:
             max_gen: int = 100,
             selection: Callable[[List, int], List] = rank,
             elimination: Callable[[List, int], None] = fitness_tournament,
-            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = sbx
+            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = sbx,
+            mutation: Callable[[List[float], float], List[float]] = random_mutate
     ):
         """
         Create a GA Config
@@ -73,3 +75,7 @@ class Config:
         self.selection = selection
         self.elimination = elimination
         self.crossover = crossover
+
+        def m(genes: List[float]) -> List[float]:
+            return mutation(genes, self.mutation_rate)
+        self.mutation = m

@@ -34,7 +34,6 @@ def plot_ga(title, gen, std, best, mean):
     best_gen.set_xlabel('Number of Generation')
     best_gen.set_ylabel('Fitness Value')
 
-    fig.suptitle(title, fontsize=16)
     plt.show()
 
 

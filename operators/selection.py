@@ -18,9 +18,6 @@ def roulette_wheel(items: List, size: int) -> List:
     return pick_from_wheel(items, wheel, size)
 
 
-TOURNAMENT_SIZE = 3
-
-
 def fitness_tournament(items: List, size: int) -> List:
     return tournament(items, [item.fitness for item in items], size)
 
