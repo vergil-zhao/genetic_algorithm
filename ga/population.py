@@ -37,8 +37,9 @@ class Population(Iterable):
         self.offsprings = self.config.mating(mating_pool)
 
     def mutate(self):
+        sigma = (1 - self.generations / self.config.max_gen) * 0.2
         for offspring in self.offsprings:
-            offspring.mutate()
+            offspring.mutate(sigma=sigma)
 
     # TODO: add passively accept fitness value
     # TODO: scaling, add evolution pressure

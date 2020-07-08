@@ -3,7 +3,7 @@ import random
 from typing import List
 
 
-def single_point(a: List[float], b: List[float]) -> (List[float], List[float]):
+def single_point(a: List[float], b: List[float], **kwargs) -> (List[float], List[float]):
     if len(a) != len(b):
         raise ValueError('chromosome length should be same')
 
@@ -17,7 +17,7 @@ def single_point(a: List[float], b: List[float]) -> (List[float], List[float]):
     )
 
 
-def blend(a: List[float], b: List[float]) -> (List[float], List[float]):
+def blend(a: List[float], b: List[float], alpha=0.5, **kwargs) -> (List[float], List[float]):
     if len(a) != len(b):
         raise ValueError('chromosome length should be same')
 
@@ -26,14 +26,14 @@ def blend(a: List[float], b: List[float]) -> (List[float], List[float]):
     for i in range(len(a)):
         low = min(a[i], b[i])
         hi = max(a[i], b[i])
-        delta = 0.5 * (hi - low)
+        delta = alpha * (hi - low)
         offspring_1.append(random.uniform(low - delta, hi + delta))
         offspring_2.append(random.uniform(low - delta, hi + delta))
 
     return offspring_1, offspring_2
 
 
-def sbx(a: List[float], b: List[float], eta=2) -> (List[float], List[float]):
+def sbx(a: List[float], b: List[float], eta=2, **kwargs) -> (List[float], List[float]):
     """
     Simulated Binary Crossover
     :param a: list of genes

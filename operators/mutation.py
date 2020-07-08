@@ -3,7 +3,7 @@ import random
 from typing import List
 
 
-def random_mutate(genes: List[float], rate: float) -> List[float]:
+def random_mutate(genes: List[float], rate: float, **kwargs) -> List[float]:
     offspring = genes[:]
     for i in range(len(offspring)):
         if rate > random.random():
@@ -11,7 +11,7 @@ def random_mutate(genes: List[float], rate: float) -> List[float]:
     return offspring
 
 
-def norm_dist(genes: List[float], rate: float, sigma: float = 0.2) -> List[float]:
+def norm_dist(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -> List[float]:
     offspring = genes[:]
 
     for i in range(len(offspring)):

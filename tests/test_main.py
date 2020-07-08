@@ -67,10 +67,10 @@ class TestMain(unittest.TestCase):
         def rosenbrock(x, y): return 100 * (y - x ** 2) ** 2 + (1 - x) ** 2
 
         p = Population(Config(
-            gene_pattern=[FloatItem(-1, 1, 8), FloatItem(-1, 1, 8)],
+            gene_pattern=[FloatItem(-2, 2, 10), FloatItem(-1, 3, 10)],
             fit=lambda data: 1 / (rosenbrock(data[0], data[1]) + 0.001),
             size=100,
-            max_gen=200,
+            max_gen=100,
             elitism=1
         ))
 

@@ -29,8 +29,8 @@ class Chromosome(Iterable):
             self.genes.append(random.random())
 
     # TODO: different distribution of random mutation
-    def mutate(self):
-        self.genes = repair(self.config.mutation(self.genes))
+    def mutate(self, **kwargs):
+        self.genes = repair(self.config.mutation(self.genes, **kwargs))
 
     def decode(self) -> List[float]:
         # TODO: Linear/logarithmic map to 0 - 1

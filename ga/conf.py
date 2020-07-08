@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Callable, Tuple
+from typing import List, Callable, Tuple, Any
 from math import floor
 
 import operators.selection as sel
@@ -43,7 +43,7 @@ class Config:
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
             mating: Callable[[List], List] = mat.random_mating_once,
             crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = cro.sbx,
-            mutation: Callable[[List[float], float], List[float]] = mut.norm_dist
+            mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist
     ):
         """
         Create a GA Config
@@ -79,6 +79,6 @@ class Config:
         self.mating = mating
         self.crossover = crossover
 
-        def m(genes: List[float]) -> List[float]:
-            return mutation(genes, self.mutation_rate)
+        def m(genes: List[float], **kwargs) -> List[float]:
+            return mutation(genes, self.mutation_rate, **kwargs)
         self.mutation = m
