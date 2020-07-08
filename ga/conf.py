@@ -2,10 +2,11 @@ from dataclasses import dataclass
 from typing import List, Callable, Tuple
 from math import floor
 
-from operators.selection import rank
-from operators.elimination import fitness_tournament
-from operators.crossover import sbx
-from operators.mutation import random_mutate
+import operators.selection as sel
+import operators.mating as mat
+import operators.elimination as eli
+import operators.crossover as cro
+import operators.mutation as mut
 
 
 @dataclass
@@ -38,10 +39,11 @@ class Config:
             mutation_rate: float = 0.05,
             elitism: int = 0,
             max_gen: int = 100,
-            selection: Callable[[List, int], List] = rank,
-            elimination: Callable[[List, int], None] = fitness_tournament,
-            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = sbx,
-            mutation: Callable[[List[float], float], List[float]] = random_mutate
+            selection: Callable[[List, int], List] = sel.fitness_tournament,
+            elimination: Callable[[List, int], None] = eli.fitness_tournament,
+            mating: Callable[[List], List] = mat.random_mating_once,
+            crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = cro.sbx,
+            mutation: Callable[[List[float], float], List[float]] = mut.norm_dist
     ):
         """
         Create a GA Config
@@ -74,6 +76,7 @@ class Config:
         self.max_gen = max_gen
         self.selection = selection
         self.elimination = elimination
+        self.mating = mating
         self.crossover = crossover
 
         def m(genes: List[float]) -> List[float]:

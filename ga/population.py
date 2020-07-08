@@ -10,12 +10,13 @@ from .conf import Config
 
 
 class Population(Iterable):
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, chromosomes: Optional[List[Chromosome]] = None):
         self.config = config
         self.generations = 0
-        self.chromosomes: List[Chromosome] = []
+        self.chromosomes: List[Chromosome] = [] if chromosomes is None else chromosomes
         self.offsprings: List[Chromosome] = []
-        self.generate_population()
+        if chromosomes is None:
+            self.generate_population()
 
     def generate_population(self):
         for i in range(self.config.size):
@@ -33,11 +34,7 @@ class Population(Iterable):
 
     def crossover(self):
         mating_pool = self.create_mating_pool()
-        self.offsprings = []
-        for i in range(0, len(mating_pool), 2):
-            a, b = mating_pool[i] + mating_pool[i + 1]
-            self.offsprings.append(a)
-            self.offsprings.append(b)
+        self.offsprings = self.config.mating(mating_pool)
 
     def mutate(self):
         for offspring in self.offsprings:
@@ -65,6 +62,7 @@ class Population(Iterable):
         for offspring in self.offsprings:
             while i < len(self.chromosomes) and self.chromosomes[i].is_alive:
                 i += 1
+            assert i < len(self.chromosomes)
             self.chromosomes[i] = offspring
 
     def rescale_fitness(self):

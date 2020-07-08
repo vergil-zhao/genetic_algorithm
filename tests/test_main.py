@@ -15,6 +15,7 @@ def plot(gen, std, best, mean):
         std.append(statistics.stdev(values))
         best.append(max(p.chromosomes).fitness)
         mean.append(statistics.mean(values))
+        # print(f'{p.generations}: {p.chromosomes}')
 
     return update
 
@@ -43,16 +44,11 @@ class TestMain(unittest.TestCase):
     def test_wave_func(self):
         def wave(x): return 5 * math.sin(3 * x) + ((x - 30) / 5) ** 2 + 10
 
-        def wave_fit(data):
-            self.assertGreaterEqual(data[0], 0)
-            self.assertLessEqual(data[0], 100)
-            return 100 / wave(data[0])
-
         p = Population(Config(
-            gene_pattern=[FloatItem(0, 100, 3)],
-            fit=wave_fit,
-            size=11,
-            max_gen=500,
+            gene_pattern=[FloatItem(0, 100, 5)],
+            fit=lambda data: 100 / wave(data[0]),
+            size=20,
+            max_gen=100,
             elitism=1
         ))
 
@@ -70,18 +66,11 @@ class TestMain(unittest.TestCase):
     def test_rosenbrock_func(self):
         def rosenbrock(x, y): return 100 * (y - x ** 2) ** 2 + (1 - x) ** 2
 
-        def rosenbrock_fit(data):
-            self.assertGreaterEqual(data[0], -2)
-            self.assertLessEqual(data[0], 2)
-            self.assertGreaterEqual(data[1], -1)
-            self.assertLessEqual(data[1], 3)
-            return 1 / (rosenbrock(data[0], data[1]) + 0.001)
-
         p = Population(Config(
-            gene_pattern=[FloatItem(-2, 2, 8), FloatItem(-1, 3, 8)],
-            fit=rosenbrock_fit,
-            size=11,
-            max_gen=500,
+            gene_pattern=[FloatItem(-1, 1, 8), FloatItem(-1, 1, 8)],
+            fit=lambda data: 1 / (rosenbrock(data[0], data[1]) + 0.001),
+            size=100,
+            max_gen=200,
             elitism=1
         ))
 

@@ -33,7 +33,7 @@ def blend(a: List[float], b: List[float]) -> (List[float], List[float]):
     return offspring_1, offspring_2
 
 
-def sbx(a: List[float], b: List[float], eta=5) -> (List[float], List[float]):
+def sbx(a: List[float], b: List[float], eta=2) -> (List[float], List[float]):
     """
     Simulated Binary Crossover
     :param a: list of genes
