@@ -31,13 +31,6 @@ class Population(Iterable):
     def eliminate(self):
         self.config.elimination(self.chromosomes, self.config.pool_size)
 
-    def replace(self):
-        i = 0
-        for offspring in self.offsprings:
-            while i < len(self.chromosomes) and self.chromosomes[i].is_alive:
-                i += 1
-            self.chromosomes[i] = offspring
-
     def crossover(self):
         mating_pool = self.create_mating_pool()
         self.offsprings = []
@@ -55,6 +48,24 @@ class Population(Iterable):
     def evaluate(self, chromosomes: List[Chromosome]):
         for i in chromosomes:
             i.fitness = self.config.fit(list(i.decode()))
+
+    def keep_elitist(self):
+        best_parent = max(self.chromosomes)
+        best_child = max(self.offsprings)
+
+        if best_parent > best_child:
+            best_parent.is_alive = True
+            self.offsprings.remove(best_child)
+
+    def replace(self):
+        if self.config.elitism > 0:
+            self.keep_elitist()
+
+        i = 0
+        for offspring in self.offsprings:
+            while i < len(self.chromosomes) and self.chromosomes[i].is_alive:
+                i += 1
+            self.chromosomes[i] = offspring
 
     def rescale_fitness(self):
         data = [item.fitness for item in self.chromosomes]

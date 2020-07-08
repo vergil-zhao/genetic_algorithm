@@ -52,7 +52,8 @@ class TestMain(unittest.TestCase):
             gene_pattern=[FloatItem(0, 100, 3)],
             fit=wave_fit,
             size=11,
-            max_gen=500
+            max_gen=500,
+            elitism=1
         ))
 
         gen = []
@@ -80,7 +81,8 @@ class TestMain(unittest.TestCase):
             gene_pattern=[FloatItem(-2, 2, 8), FloatItem(-1, 3, 8)],
             fit=rosenbrock_fit,
             size=11,
-            max_gen=500
+            max_gen=500,
+            elitism=1
         ))
 
         gen = []
