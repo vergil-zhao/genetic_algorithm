@@ -37,7 +37,10 @@ class Population(Iterable):
         self.offsprings = self.config.mating(mating_pool)
 
     def mutate(self):
-        sigma = (1 - self.generations / self.config.max_gen) * 0.2
+        if self.config.shrink_mutation_range:
+            sigma = (1 - self.generations / self.config.max_gen) * self.config.mutation_sigma
+        else:
+            sigma = self.config.mutation_sigma
         for offspring in self.offsprings:
             offspring.mutate(sigma=sigma)
 

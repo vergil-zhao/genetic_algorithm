@@ -43,7 +43,9 @@ class Config:
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
             mating: Callable[[List], List] = mat.random_mating_once,
             crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = cro.sbx,
-            mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist
+            mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
+            mutation_sigma: float = 0.2,
+            shrink_mutation_range: bool = True,
     ):
         """
         Create a GA Config
@@ -78,6 +80,8 @@ class Config:
         self.elimination = elimination
         self.mating = mating
         self.crossover = crossover
+        self.mutation_sigma = mutation_sigma
+        self.shrink_mutation_range = shrink_mutation_range
 
         def m(genes: List[float], **kwargs) -> List[float]:
             return mutation(genes, self.mutation_rate, **kwargs)
