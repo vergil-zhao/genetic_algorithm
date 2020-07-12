@@ -51,12 +51,19 @@ class Config:
         Create a GA Config
 
         :param gene_pattern: specify the condition of individual(s), FLoatItem, list of FloatItem
+        :param fit: a function receives a raw data and returns a fitness number, float 0 - 1
         :param size: an int indicating the number of the population
         :param crossover_rate: how many population will be involved to crossover for offsprings, float 0 - 1
         :param mutation_rate: how big the change the offsprings will be mutate, float 0 - 1
-        :param fit: a function receives a raw data and returns a fitness number, float 0 - 1
         :param elitism: keep the best n items for next iteration
         :param max_gen: maximum generations, 0 means no limit
+        :param selection: selection operator
+        :param elimination: elimination operator
+        :param mating: mating operator
+        :param crossover: crossover operator
+        :param mutation: mutation operator
+        :param mutation_sigma: the sigma value for normal distribution, only effective when operator is norm_dist
+        :param shrink_mutation_range: change mutation_sigma gradually by every generation
         """
         if gene_pattern is None:
             raise ValueError('"pattern" has to be a list of item, eg. [FloatItem(min=0.1, max=1, precision=8)]')

@@ -4,6 +4,21 @@ from typing import List
 
 
 def single_point(a: List[float], b: List[float], **kwargs) -> (List[float], List[float]):
+    """
+    Crossover genes at a random cut point, e.g.
+
+    Cut point = 1
+    a: 0.1 0.2 | 0.3 0.4 0.5
+    b: 0.6 0.7 | 0.8 0.9 1.0
+
+    Offsprings will be:
+    0.6 0.7 0.3 0.4 0.5
+    0.1 0.2 0.8 0.9 1.0
+
+    :param a: list of genes
+    :param b: list of genes
+    :return: two offsprings
+    """
     if len(a) != len(b):
         raise ValueError('chromosome length should be same')
 
@@ -18,6 +33,14 @@ def single_point(a: List[float], b: List[float], **kwargs) -> (List[float], List
 
 
 def blend(a: List[float], b: List[float], alpha=0.5, **kwargs) -> (List[float], List[float]):
+    """
+    Blend gene numbers randomly within a range depended on parent genes
+
+    :param a: list of genes
+    :param b: list of genes
+    :param alpha: range factor
+    :return: two offsprings
+    """
     if len(a) != len(b):
         raise ValueError('chromosome length should be same')
 
@@ -36,6 +59,20 @@ def blend(a: List[float], b: List[float], alpha=0.5, **kwargs) -> (List[float], 
 def sbx(a: List[float], b: List[float], eta=2, **kwargs) -> (List[float], List[float]):
     """
     Simulated Binary Crossover
+
+    In binary crossover
+    when cut point = 3
+    1001|0010 = 146
+    0111|1001 = 121
+    avg = 133.5
+    offsprings:
+    10011001 = 153
+    01110010 = 114
+    avg = 133.5
+
+    This operator has the same attribute with Binary Crossover, the average value of parents genes equals
+    the average value of offsprings genes at the same position like it shows above.
+
     :param a: list of genes
     :param b: list of genes
     :param eta: distribution index, small value make the children far from the parents

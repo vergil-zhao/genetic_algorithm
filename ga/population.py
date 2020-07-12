@@ -10,7 +10,42 @@ from .conf import Config
 
 
 class Population(Iterable):
+    """
+    Popluation is the main class of this genetic algorthim implementation.
+    It contains fixed size of chromosomes after initialized.
+
+    Algorithm Process:
+    Start
+        ↓
+    Initialization: generate chromosomes
+        ↓
+    * Diversity Control: TODO
+        ↓
+    Scaling: TODO
+        ↓
+    Selection: create a mating pool for offsprings
+        ↓
+    Mating: parents mating by specific way
+        ↓
+    Crossover: chromosome crossover and produce offsprings
+        ↓
+    Mutation: offspings mutate
+        ↓
+    Evalution: fitness evaluation
+        ↓
+    Satisfied? -> If no, go back to *
+        ↓
+    End
+
+    """
+
     def __init__(self, config: Config, chromosomes: Optional[List[Chromosome]] = None):
+        """
+        Create a population for running genetic algorithm
+
+        :param config: GA Config
+        :param chromosomes: initial chromosomes, can be used to continue last running
+        """
         self.config = config
         self.generations = 0
         self.chromosomes: List[Chromosome] = [] if chromosomes is None else chromosomes
@@ -19,6 +54,10 @@ class Population(Iterable):
             self.generate_population()
 
     def generate_population(self):
+        """
+        Generation specific size of chromosomes
+        :return:
+        """
         for i in range(self.config.size):
             self.chromosomes.append(Chromosome(self.config))
 
@@ -87,11 +126,17 @@ class Population(Iterable):
         # return statistics.stdev(data) < 0.1
         return self.generations >= self.config.max_gen
 
-    def evolve(self, callback: Optional[Callable[[Population], None]] = None):
+    def evolve(self, callback: Optional[Callable[[Population], None]] = None) -> None:
+        """
+        Main method for running genetic algorithm, actively call a fitness function
+
+        :param callback: a function called every generation
+        """
         self.generations = 0
         self.evaluate(self.chromosomes)
         callback(self) if callback is not None else None
         # TODO: different way to stop
+        # TODO: diversity control
         while not self.is_satisfied():
             self.generations += 1
             self.age_grow()

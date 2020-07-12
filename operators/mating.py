@@ -21,6 +21,12 @@ def _mate(chromosomes: List) -> List:
 
 
 def random_mating(chromosomes: List) -> List:
+    """
+    Randomly pick two chromosomes as parents, chromosome can be picked many times
+
+    :param chromosomes: parents
+    :return: offsprings
+    """
     offsprings = []
     for i in range(len(chromosomes)):
         parents = random.choices(chromosomes, k=2)
@@ -32,15 +38,35 @@ def random_mating(chromosomes: List) -> List:
 
 
 def random_mating_once(chromosomes: List) -> List:
+    """
+    Randomly pick two chromosomes as parents, every chromosome can only be picked once
+
+    :param chromosomes: parents
+    :return: offsprings
+    """
     pool = chromosomes[:]
     random.shuffle(pool)
     return _mate(pool)
 
 
 def phenotypic_mating(chromosomes: List) -> List:
+    """
+    Pick parents ordered by fitness,
+    chromosomes whose fitness close to each other will mate
+
+    :param chromosomes: parents
+    :return: offsprings
+    """
     pool = sorted(chromosomes)
     return _mate(pool)
 
 
 def genotypic_mating(chromosomes: List) -> List:
+    """
+    TODO: Pick parents ordered by gene similarity,
+    chromosomes whose gene close to each other will mate
+
+    :param chromosomes: parents
+    :return: offsprings
+    """
     pass
