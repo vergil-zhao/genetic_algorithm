@@ -83,7 +83,7 @@ genetic_algorithm
 ```
 
 ## TODO
-- [ ] Add setup.py 
+- [ ] Add `setup.py`  for packaging and commands
 - [ ] Saving states for passive call
 - [ ] Diversity Control
 - [ ] Scaling (adding evolution pressure)
