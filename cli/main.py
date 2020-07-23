@@ -18,7 +18,7 @@ def load_input_file(path) -> Optional[dict]:
     if os.path.isfile(path):
         with open(path) as file:
             return json.load(file)
-    elif os.path.isdir(path) and os.path.exists(path):
+    elif os.path.isdir(path):
         files = sorted([os.path.join(path, f) for f in os.listdir(path)])
         files = [f for f in files if os.path.isfile(f)]
         if len(files) <= 0:
@@ -29,7 +29,9 @@ def load_input_file(path) -> Optional[dict]:
 
 
 def dump_output(path, obj: dict) -> Optional[str]:
-    if os.path.isdir(path) and os.path.exists(path):
+    name, ext = os.path.splitext(path)
+    if ext == '':
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         filename = os.path.join(path, '%03d.json' % obj.get('generation'))
         with open(filename, 'w') as file:
             json.dump(obj, file, indent=2)

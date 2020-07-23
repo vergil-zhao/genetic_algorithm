@@ -173,9 +173,6 @@ class GAPassive(GA):
             population: Optional[List[Chromosome]] = None,
             offsprings: Optional[List[Chromosome]] = None,
     ):
-
-        assert len(population) == config.size
-
         super().__init__(config, population)
         self.generation = generation
         self.offsprings = offsprings or []

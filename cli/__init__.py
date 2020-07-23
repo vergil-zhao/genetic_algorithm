@@ -29,9 +29,8 @@ def run(config_file, input_path, output_path):
         return
 
     input_data = load_input_file(input_path)
-    if input_data is None and not os.path.exists(input_path):
-        click.echo(click.style('😭 The directory for input file not exists', fg='red'))
-        return
+    if input_data is None:
+        click.echo(click.style('The input path is not exist.', fg='yellow'))
 
     data = evolve(config, input_data) if input_data is not None else evolve(config)
 
