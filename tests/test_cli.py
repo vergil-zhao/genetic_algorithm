@@ -77,10 +77,10 @@ class TestCLI(TestCase):
         return self.cwd.joinpath(path)
 
     def test_load_config(self):
-        self.assertDictEqual(load_config(self.get_path('config_example.yml')), self.config_data)
+        self.assertDictEqual(load_config(self.get_path('examples/config_example.yml')), self.config_data)
 
     def test_load_input_file(self):
-        self.assertDictEqual(load_input_file(self.get_path('input_example.json')), self.ga_data)
+        self.assertDictEqual(load_input_file(self.get_path('examples/input_example.json')), self.ga_data)
 
     def test_load_input_file_from_dir(self):
         path = self.get_path('test_input/')
