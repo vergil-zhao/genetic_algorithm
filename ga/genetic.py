@@ -35,6 +35,16 @@ class Chromosome(Iterable):
         else:
             self.generate()
 
+    @property
+    def fitness(self):
+        return self.__fitness
+
+    @fitness.setter
+    def fitness(self, value: float):
+        assert isinstance(value, float)
+        assert value >= 0
+        self.__fitness = value
+
     def generate(self):
         """Generate and replace genes randomly"""
         self.genes = []
@@ -57,9 +67,6 @@ class Chromosome(Iterable):
         assert parameters is not None
         assert len(parameters) == len(self.config.gene_pattern), 'incompatitive parameters'
 
-        fitness = data.get('fitness')
-        assert isinstance(fitness, float)
-
         alive = data.get('alive')
         assert isinstance(alive, bool)
 
@@ -67,7 +74,7 @@ class Chromosome(Iterable):
         for i, item in enumerate(self.config.gene_pattern):
             result.append((parameters[i] - item.start) / (item.end - item.start))
         self.genes = repair(result)
-        self.fitness = fitness
+        self.fitness = data.get('fitness')
         self.is_alive = alive
 
     @staticmethod

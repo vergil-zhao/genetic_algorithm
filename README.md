@@ -139,7 +139,7 @@ Result can be store in a single file or in a directory which will contain every 
   "population": [
     {
       "parameters": [0.0, 0.0, 0.0],  // actual parameters
-      "fitness": 1.0,                 // fitness value
+      "fitness": 1.0,                 // fitness value (>= 0)
       "alive": true                   // The alive flag. It will be kept for next
                                       // generation if it is true, otherwise, it 
                                       // might be replaced by offspring.
@@ -149,7 +149,7 @@ Result can be store in a single file or in a directory which will contain every 
   "offsprings": [
     {
       "parameters": [0.0, 0.0, 0.0],  // Using this to run a your function/program
-      "fitness": 1.0,                 // then fill the fitness value here
+      "fitness": 1.0,                 // then fill the fitness value here (>= 0)
       "alive": true
     },
     ...
@@ -195,11 +195,12 @@ genetic run -p -c config.yml -i ./data/
 
 ## TODO
 - [x] Add `setup.py`  for packaging and commands
-- [ ] Add Travis CI config
 - [x] Saving states for passive call
+- [ ] Add plot for command line
 - [ ] Diversity Control
 - [ ] Scaling (adding evolution pressure)
 - [ ] Add different stop criteria
+- [ ] Add Travis CI config
 - [ ] Implement Multi-Objective
 
 
