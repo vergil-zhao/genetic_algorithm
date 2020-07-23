@@ -12,7 +12,7 @@ genetic_algorithm
  │  │
  │  ├ genetic.py ------ Chromosome class containing genes
  │  │
- │  └ popluation.py --- Main algorithm
+ │  └ algorithms.py --- Main algorithm GA and GAPassive
  │
  ├ operators
  │  ├ selection.py ---- Selection operators for creating mating pool
@@ -31,6 +31,9 @@ genetic_algorithm
  │  └ elimination.py -- Elimination operators control which parent will be 
  │                      eliminated and replaced by offsprings for next generation. 
  │                      Contains fitness, age, etc.
+ │
+ ├ cli
+ │
  └ tests
 ```  
 
@@ -84,6 +87,104 @@ genetic_algorithm
     ┌─────────────────────┐
     │         End         │
     └─────────────────────┘
+```
+
+## Installation
+You can install it by clone this repo and run the installation command.
+```shell script
+git clone https://github.com/vergilchoi/genetic_algorithm
+```
+
+Install locally by using pip:
+```shell script
+pip install .
+```
+
+Install locally by using python:
+```shell script
+python setup.py install
+```
+
+## Use as a command
+
+### Config
+
+A configuration file is need to be like this:
+```yaml
+# config.yml
+
+pattern:                # specify the parameter range
+  - start: 0            # the lower bound
+    end: 1              # the higher bound (not include)
+    precision: 10       # indicates how many digits after point will be kept
+  - start: 0
+    end: 2
+    precision: 10
+  - start: 0
+    end: 3
+    precision: 10
+size: 5                 # population size
+crossoverRate: 0.75     # indicates how big the mating pool size is, (0, 1]
+mutationRate: 0.06      # the probability of mutation for every gene, [0, 1]
+elitism: true           # keep the elitist or not
+maxGen: 100             # max generation
+```
+
+### Input and Output
+
+Result can be store in a single file or in a directory which will contain every generation. The output format will be like below:
+
+```json
+{
+  "population": [
+    {
+      "parameters": [0.0, 0.0, 0.0],  // actual parameters
+      "fitness": 1.0,                 // fitness value
+      "alive": true                   // The alive flag. It will be kept for next
+                                      // generation if it true, otherwise, it may
+                                      // be replaced by offspring.
+    },
+    ...
+  ],
+  "offsprings": [
+    {
+      "parameters": [0.0, 0.0, 0.0],  // Using this to run a your function/program
+      "fitness": 1.0,                 // then fill the fitness value here
+      "alive": true
+    },
+    ...
+  ],
+  "generation": 10,
+  "satisfied": false                  // If it is true, the algorithm will not run.
+                                      // It will be set to true if algorithm find it
+                                      // is satisfied. (It means the max generation 
+                                      // has reached for now.)
+}
+```
+
+### Commands
+
+To run it with a single file:
+
+```shell script
+# read data from data.json and store result to the same file for next run 
+genetic run -c config.yml -i data.json
+
+# read data from input_data.json and store result to output_data.json
+genetic run -c config.yml -i input_data.json -o output_data.json
+```
+
+If the input file/directory is not exist, the algorithm will generate initial population and create the file/directory if possible.
+
+If a directory specified, it will read the last file in the directory, which is ordered by file names. The output files will be named as generation number.
+
+```shell script
+# read the last data from the directory specified
+# and store the result to the same directory
+genetic run -c config.yml -i ./data/
+
+# using different directory
+genetic run -c config.yml -i ./input_data/ -o ./output_data/
 ```
 
 ## TODO
