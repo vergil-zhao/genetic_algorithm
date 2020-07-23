@@ -33,11 +33,11 @@ def dump_output(path, obj: dict) -> Optional[str]:
     if ext == '':
         os.makedirs(os.path.dirname(path), exist_ok=True)
         filename = os.path.join(path, '%03d.json' % obj.get('generation'))
-        with open(filename, 'w') as file:
+        with open(filename, 'w+') as file:
             json.dump(obj, file, indent=2)
         return filename
     elif os.path.exists(os.path.dirname(os.path.abspath(path))):
-        with open(path, 'w') as file:
+        with open(path, 'w+') as file:
             json.dump(obj, file, indent=2)
         return path
     return None
