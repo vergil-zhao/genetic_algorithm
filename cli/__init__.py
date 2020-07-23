@@ -22,7 +22,9 @@ def main():
                    'If not specified, the output will overwrite the input file. '
                    'If it is a directory, data of every generation will be created as'
                    'seperate files in the directory.')
-def run(config_file, input_path, output_path):
+@click.option('-p', '--pretty', required=False, is_flag=True,
+              help='Add indent to JSON file to make it human-readable')
+def run(config_file, input_path, output_path, pretty: bool = False):
     config = load_config(config_file)
     if config is None:
         click.echo(click.style('😭 Config file not exists', fg='red'))
@@ -36,7 +38,7 @@ def run(config_file, input_path, output_path):
 
     output_file = output_path or input_path
 
-    result = dump_output(output_file, data)
+    result = dump_output(output_file, data, pretty)
     if result is None:
         click.echo(click.style('😭 Failed to write result to file', fg='red'))
         return

@@ -1,13 +1,16 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+with open('README.md') as f:
+    long_description = f.read()
 
 setup(
     name='genetic',
     version='1.0.0',
+    platforms=['Linux', 'macOS', 'Windows'],
     author='Vergil Choi',
     author_email='vergil.choi.zyc@gmail.com',
+    license='GPLv3',
+    description='A pure Python implementation of the Genetic Algorithm',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/vergilchoi/genetic_algorithm',

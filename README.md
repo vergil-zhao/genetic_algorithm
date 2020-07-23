@@ -141,8 +141,8 @@ Result can be store in a single file or in a directory which will contain every 
       "parameters": [0.0, 0.0, 0.0],  // actual parameters
       "fitness": 1.0,                 // fitness value
       "alive": true                   // The alive flag. It will be kept for next
-                                      // generation if it true, otherwise, it may
-                                      // be replaced by offspring.
+                                      // generation if it is true, otherwise, it 
+                                      // might be replaced by offspring.
     },
     ...
   ],
@@ -185,6 +185,12 @@ genetic run -c config.yml -i ./data/
 
 # using different directory
 genetic run -c config.yml -i ./input_data/ -o ./output_data/
+```
+
+Add flag `-p` can make it print formatted JSON to the file, like:
+
+```shell script
+genetic run -p -c config.yml -i ./data/
 ```
 
 ## TODO
