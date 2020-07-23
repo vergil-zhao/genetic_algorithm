@@ -16,10 +16,10 @@ class TestCrossover(TestCase):
         self.assertTrue(0.45 <= a[1] <= 0.65)
         self.assertTrue(0.25 <= b[0] <= 0.45)
         self.assertTrue(0.45 <= b[1] <= 0.65)
-        print(a, b)
+        # print(a, b)
 
     def test_simulated_binary(self):
         a, b = crs.sbx([0, 0.6], [1, 0.4])
         self.assertAlmostEqual(a[0] + b[0], 1)
         self.assertAlmostEqual(a[1] + b[1], 1)
-        print(a, b)
+        # print(a, b)

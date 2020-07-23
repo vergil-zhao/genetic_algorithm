@@ -2,10 +2,10 @@ import unittest
 
 from ga.conf import Config, FloatItem
 from ga.genetic import Chromosome
-from ga.population import Population
+from ga.algorithms import GA, GAPassive
 
 
-class TestPopulation(unittest.TestCase):
+class TestGA(unittest.TestCase):
 
     def setUp(self) -> None:
         self.config = Config(
@@ -13,7 +13,7 @@ class TestPopulation(unittest.TestCase):
             fit=sum,
             size=12,
             max_gen=100,
-            elitism=1
+            elitism=True
         )
         self.chromosomes = [
             Chromosome(self.config, [0, 0, 0]),
@@ -31,22 +31,22 @@ class TestPopulation(unittest.TestCase):
         ]
 
     def test_generate(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         self.assertEqual(len(p.chromosomes), 12)
-        self.assertEqual(p.generations, 0)
+        self.assertEqual(p.generation, 0)
 
     def test_selection(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         self.assertEqual(len(p.create_mating_pool()), 9)
 
     def test_age_grow(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         p.age_grow()
         for item in p.chromosomes:
             self.assertEqual(item.age, 1)
 
     def test_eliminate(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         p.eliminate()
         count = 0
         for item in p.chromosomes:
@@ -55,18 +55,18 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(count, 9)
 
     def test_crossover(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         p.crossover()
         self.assertEqual(len(p.offsprings), 9)
 
     def test_evaluate(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         p.evaluate(p.chromosomes)
         for item in p.chromosomes:
             self.assertEqual(item.fitness, sum(item.decode()))
 
     def test_replace(self):
-        p = Population(self.config, self.chromosomes)
+        p = GA(self.config, self.chromosomes)
         p.evaluate(p.chromosomes)
         p.crossover()
         p.mutate()
@@ -77,3 +77,21 @@ class TestPopulation(unittest.TestCase):
         p.replace()
         self.assertNotEqual(origin, p.chromosomes)
 
+    def test_serialize(self):
+        p = GAPassive(
+            self.config,
+            1,
+            self.chromosomes,
+            None,
+        )
+        self.maxDiff = None
+        self.assertDictEqual(p.serialize(), {
+            'population': [{
+                'parameters': [0.0, 0.0, -5.0],
+                'fitness': 0.0,
+                'alive': True,
+            } for _i in range(len(self.chromosomes))],
+            'offsprings': [],
+            'generation': 1,
+            'satisfied': False,
+        })

@@ -4,7 +4,7 @@ from typing import List
 from operators.utils import create_wheel, pick_from_wheel, tournament
 
 
-def random_pick(items: List, size: int) -> List:
+def random_pick(items: List, size: int, **kwargs) -> List:
     """
     Randomly pick items to create a pool.
 
@@ -15,7 +15,7 @@ def random_pick(items: List, size: int) -> List:
     return random.sample(items, size)
 
 
-def roulette_wheel(items: List, size: int) -> List:
+def roulette_wheel(items: List, size: int, **kwargs) -> List:
     """
     Pick item randomly at a roulette wheel of which width is the fitness value.
 
@@ -27,7 +27,7 @@ def roulette_wheel(items: List, size: int) -> List:
     return pick_from_wheel(items, wheel, size)
 
 
-def fitness_tournament(items: List, size: int) -> List:
+def fitness_tournament(items: List, size: int, **kwargs) -> List:
     """
     Pick item by rounds of tournament.
 
@@ -38,7 +38,7 @@ def fitness_tournament(items: List, size: int) -> List:
     return tournament(items, [item.fitness for item in items], size)
 
 
-def rank(items: List, size: int) -> List:
+def rank(items: List, size: int, **kwargs) -> List:
     """
     Derived from roulette wheel, roulette created by rank number,
     the higher fitness value the rank number will be.

@@ -4,7 +4,7 @@ from typing import List
 from operators.utils import tournament
 
 
-def random_pick(items: List, size: int) -> None:
+def random_pick(items: List, size: int, **kwargs) -> None:
     """
     Randomly pick items and set to eliminated
 
@@ -16,7 +16,7 @@ def random_pick(items: List, size: int) -> None:
         item.is_alive = False
 
 
-def fitness_tournament(items: List, size: int) -> None:
+def fitness_tournament(items: List, size: int, **kwargs) -> None:
     """
     Tournament by fitness
 
@@ -28,7 +28,7 @@ def fitness_tournament(items: List, size: int) -> None:
         item.is_alive = False
 
 
-def age_tournament(items: List, size: int) -> None:
+def age_tournament(items: List, size: int, **kwargs) -> None:
     """
     Tournament by age
 

@@ -3,7 +3,6 @@ import operators.selection as slc
 
 from ga.genetic import Chromosome
 from ga.conf import Config, FloatItem
-from operators.utils import print_name
 
 
 class TestSelection(unittest.TestCase):
@@ -19,18 +18,22 @@ class TestSelection(unittest.TestCase):
         for i in range(10):
             self.chromosomes[i].fitness = i
 
-    @print_name
+    # @print_name
     def test_random_pick(self):
-        print([c.fitness for c in slc.random_pick(self.chromosomes, 5)])
+        p = slc.random_pick(self.chromosomes, 5)
+        self.assertEqual(len(p), 5)
 
-    @print_name
+    # @print_name
     def test_roulette_wheel(self):
-        print([c.fitness for c in slc.roulette_wheel(self.chromosomes, 5)])
+        p = slc.roulette_wheel(self.chromosomes, 5)
+        self.assertEqual(len(p), 5)
 
-    @print_name
+    # @print_name
     def test_fitness_tournament(self):
-        print([c.fitness for c in slc.fitness_tournament(self.chromosomes, 5)])
+        p = slc.fitness_tournament(self.chromosomes, 5)
+        self.assertEqual(len(p), 5)
 
-    @print_name
+    # @print_name
     def test_rank(self):
-        print([c.fitness for c in slc.rank(self.chromosomes, 5)])
+        p = slc.rank(self.chromosomes, 5)
+        self.assertEqual(len(p), 5)

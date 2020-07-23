@@ -30,8 +30,9 @@ class Chromosome(Iterable):
         self.is_alive = True
         self.fitness = 0.0
         self.config = config
-        self.genes = repair(genes)
-        if genes is None:
+        if genes is not None:
+            self.genes = repair(genes)
+        else:
             self.generate()
 
     def generate(self):
@@ -46,6 +47,35 @@ class Chromosome(Iterable):
         """
         self.genes = repair(self.config.mutation(self.genes, **kwargs))
 
+    def update(self, data: dict):
+        """
+        Encode from original parameters and update it to genes
+
+        :param data: original actual parameters, fitness value and alive or not
+        """
+        parameters = data.get('parameters')
+        assert parameters is not None
+        assert len(parameters) == len(self.config.gene_pattern), 'incompatitive parameters'
+
+        fitness = data.get('fitness')
+        assert isinstance(fitness, float)
+
+        alive = data.get('alive')
+        assert isinstance(alive, bool)
+
+        result = []
+        for i, item in enumerate(self.config.gene_pattern):
+            result.append((parameters[i] - item.start) / (item.end - item.start))
+        self.genes = repair(result)
+        self.fitness = fitness
+        self.is_alive = alive
+
+    @staticmethod
+    def from_dict(config: Config, data: dict):
+        result = Chromosome(config)
+        result.update(data)
+        return result
+
     def decode(self) -> List[float]:
         """
         Decode genes to actual parameters
@@ -57,6 +87,13 @@ class Chromosome(Iterable):
         for i, item in enumerate(self.config.gene_pattern):
             result.append(round(self.genes[i] * (item.end - item.start) + item.start, item.precision))
         return result
+
+    def serialize(self) -> dict:
+        return {
+            'parameters': self.decode(),
+            'fitness': self.fitness,
+            'alive': self.is_alive,
+        }
 
     def __add__(self, other: Chromosome) -> (Chromosome, Chromosome):
         """

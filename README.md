@@ -74,6 +74,10 @@ genetic_algorithm
  │  └─────────────────────┘
  │             ↓
  │  ┌─────────────────────┐
+ │  │     Replacement     │  put offsprings back to population
+ │  └─────────────────────┘
+ │             ↓
+ │  ┌─────────────────────┐
  └──│      Satisfied?     │ 
  NO └─────────────────────┘
            YES ↓ 
@@ -83,8 +87,9 @@ genetic_algorithm
 ```
 
 ## TODO
-- [ ] Add `setup.py`  for packaging and commands
-- [ ] Saving states for passive call
+- [x] Add `setup.py`  for packaging and commands
+- [ ] Add Travis CI config
+- [x] Saving states for passive call
 - [ ] Diversity Control
 - [ ] Scaling (adding evolution pressure)
 - [ ] Add different stop criteria

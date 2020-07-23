@@ -30,7 +30,7 @@ class TestElimination(TestCase):
 
         self.assertEqual(count, 5)
 
-    @print_name
+    # @print_name
     def test_fitness_tournament(self):
         elm.fitness_tournament(self.chromosomes, 5)
 
@@ -40,9 +40,9 @@ class TestElimination(TestCase):
                 count += 1
 
         self.assertEqual(count, 5)
-        print([item.fitness for item in self.chromosomes if item.is_alive])
+        # print([item.fitness for item in self.chromosomes if item.is_alive])
 
-    @print_name
+    # @print_name
     def test_age_tournament(self):
         elm.age_tournament(self.chromosomes, 5)
 
@@ -52,4 +52,4 @@ class TestElimination(TestCase):
                 count += 1
 
         self.assertEqual(count, 5)
-        print([item.age for item in self.chromosomes if item.is_alive])
+        # print([item.age for item in self.chromosomes if item.is_alive])

@@ -39,6 +39,7 @@ def pick_from_wheel(items: List[T], wheel: List[S], size: int) -> List[T]:
     total = wheel[-1]
     for i in range(size):
         pick = random.random() * total
+        # TODO: use binary search to reduce time complexity
         j = 0
         while pick > wheel[j]:
             j += 1
@@ -52,15 +53,10 @@ def tournament(items: List[T], values: List[S], size: int, round_size: int = 3) 
     assert size <= len(items), 'size could not be greater than items size'
 
     remain = [i for i in range(len(items))]
-    random.shuffle(remain)
 
     pool = []
     for i in range(size):
-        if len(remain) < round_size:
-            round_pool = remain
-        else:
-            round_pool = random.sample(remain, round_size)
-
+        round_pool = random.sample(remain, min(len(remain), round_size))
         max_index = round_pool[0]
         max_value = values[round_pool[0]]
         for index in round_pool:

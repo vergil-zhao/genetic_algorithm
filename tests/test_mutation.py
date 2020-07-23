@@ -11,7 +11,7 @@ class TestMutation(unittest.TestCase):
         self.assertEqual(len(genes), len(new_genes))
         self.assertGreaterEqual(new_genes, [0, 0, 0, 0])
         self.assertLessEqual(new_genes, [1, 1, 1, 1])
-        print(new_genes)
+        # print(new_genes)
 
     def test_norm_dist(self):
         genes = [0, 1, 0.5, 0.25]
@@ -20,4 +20,4 @@ class TestMutation(unittest.TestCase):
             self.assertEqual(len(genes), len(new_genes))
             self.assertGreaterEqual(new_genes, [-1, 0, -0.5, -0.75])
             self.assertLessEqual(new_genes, [1, 2, 1.5, 1.25])
-            print(new_genes)
+            # print(new_genes)

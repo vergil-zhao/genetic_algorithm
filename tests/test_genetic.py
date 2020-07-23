@@ -33,9 +33,6 @@ class TestGenetic(unittest.TestCase):
         c = Chromosome(self.config, [0, 0, 0])
         self.assertEqual(c.decode(), [0, -1, -100])
 
-        c = Chromosome(self.config, [1, 1, 1])
-        self.assertEqual(c.decode(), [1, 0, 100])
-
         c = Chromosome(self.config, [0.5, 0.5, 0.5])
         self.assertEqual(c.decode(), [0.5, -0.5, 0])
 
@@ -48,3 +45,28 @@ class TestGenetic(unittest.TestCase):
         self.assertEqual(len(a.genes), len(self.chromosome.genes))
         self.assertEqual(len(b.genes), len(self.chromosome.genes))
 
+    def test_update(self):
+        c = Chromosome(self.config)
+        c.update({
+            'parameters': [0.0, -1.0, -100.0],
+            'fitness': 1.0,
+            'alive': True,
+        })
+        self.assertListEqual(c.genes, [0.0, 0.0, 0.0])
+        self.assertListEqual(c.decode(), [0.0, -1.0, -100.0])
+
+        c.update({
+            'parameters': [0.5, -0.5, 0],
+            'fitness': 2.0,
+            'alive': True,
+        })
+        self.assertListEqual(c.genes, [0.5, 0.5, 0.5])
+        self.assertListEqual(c.decode(), [0.5, -0.5, 0])
+
+    def test_serialize(self):
+        c = Chromosome(self.config, [0, 0, 0])
+        self.assertDictEqual(c.serialize(), {
+            'parameters': [0.0, -1.0, -100.0],
+            'fitness': 0.0,
+            'alive': True,
+        })
