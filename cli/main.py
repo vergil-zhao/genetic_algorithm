@@ -31,7 +31,7 @@ def load_input_file(path) -> Optional[dict]:
 def dump_output(path, obj: dict) -> Optional[str]:
     name, ext = os.path.splitext(path)
     if ext == '':
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        os.makedirs(path, exist_ok=True)
         filename = os.path.join(path, '%03d.json' % obj.get('generation'))
         with open(filename, 'w+') as file:
             json.dump(obj, file, indent=2)
