@@ -134,7 +134,7 @@ maxGen: 100             # max generation
 
 Result can be store in a single file or in a directory which will contain every generation. The output format will be like below:
 
-```json
+```
 {
   "population": [
     {
