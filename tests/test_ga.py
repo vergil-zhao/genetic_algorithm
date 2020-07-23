@@ -37,7 +37,7 @@ class TestGA(unittest.TestCase):
 
     def test_selection(self):
         p = GA(self.config, self.chromosomes)
-        self.assertEqual(len(p.create_mating_pool()), 9)
+        self.assertEqual(len(p.create_mating_pool()), 8)
 
     def test_age_grow(self):
         p = GA(self.config, self.chromosomes)
@@ -52,12 +52,12 @@ class TestGA(unittest.TestCase):
         for item in p.chromosomes:
             if not item.is_alive:
                 count += 1
-        self.assertEqual(count, 9)
+        self.assertEqual(count, 8)
 
     def test_crossover(self):
         p = GA(self.config, self.chromosomes)
         p.crossover()
-        self.assertEqual(len(p.offsprings), 9)
+        self.assertEqual(len(p.offsprings), 8)
 
     def test_evaluate(self):
         p = GA(self.config, self.chromosomes)
@@ -80,7 +80,7 @@ class TestGA(unittest.TestCase):
     def test_serialize(self):
         p = GAPassive(
             self.config,
-            1,
+            0,
             self.chromosomes,
             None,
         )
@@ -92,6 +92,6 @@ class TestGA(unittest.TestCase):
                 'alive': True,
             } for _i in range(len(self.chromosomes))],
             'offsprings': [],
-            'generation': 1,
+            'generation': 0,
             'satisfied': False,
         })

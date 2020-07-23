@@ -39,32 +39,32 @@ class TestCLI(TestCase):
         'population': [
             {
                 "parameters": [0.0, 0.0, 0.0],
-                "fitness": 1,
+                "fitness": 1.0,
                 "alive": True,
             },
             {
                 "parameters": [0.0, 1.0, 2.0],
-                "fitness": 1,
+                "fitness": 1.0,
                 "alive": True,
             },
             {
                 "parameters": [0.5, 0.5, 1.5],
-                "fitness": 1,
+                "fitness": 1.0,
                 "alive": True,
             },
             {
                 "parameters": [0.1, 1.1, 2.1],
-                "fitness": 1,
+                "fitness": 1.0,
                 "alive": True,
             },
             {
                 "parameters": [0.2, 1.2, 2.2],
-                "fitness": 1,
+                "fitness": 1.0,
                 "alive": True,
             }
         ],
         'offsprings': [],
-        'generation': 1,
+        'generation': 0,
         'satisfied': False,
     }
 
@@ -103,6 +103,6 @@ class TestCLI(TestCase):
         path = self.get_path('test_input/')
         path.mkdir()
         dump_output(path, self.ga_data)
-        self.assertTrue(path.joinpath('001.json').exists())
-        self.assertDictEqual(load_input_file(path.joinpath('001.json')), self.ga_data)
+        self.assertTrue(path.joinpath('000.json').exists())
+        self.assertDictEqual(load_input_file(path.joinpath('000.json')), self.ga_data)
         shutil.rmtree(path)
