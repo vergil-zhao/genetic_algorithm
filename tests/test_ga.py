@@ -10,7 +10,7 @@ class TestGA(unittest.TestCase):
     def setUp(self) -> None:
         self.config = Config(
             gene_pattern=[FloatItem(0, 1, 5), FloatItem(0, 5, 5), FloatItem(-5, 5, 5)],
-            fit=sum,
+            fit=lambda x: abs(sum(x)),
             size=12,
             max_gen=100,
             elitism=True
@@ -63,7 +63,7 @@ class TestGA(unittest.TestCase):
         p = GA(self.config, self.chromosomes)
         p.evaluate(p.chromosomes)
         for item in p.chromosomes:
-            self.assertEqual(item.fitness, sum(item.decode()))
+            self.assertEqual(item.fitness, abs(sum(item.decode())))
 
     def test_replace(self):
         p = GA(self.config, self.chromosomes)

@@ -41,9 +41,8 @@ class Chromosome(Iterable):
 
     @fitness.setter
     def fitness(self, value: float):
-        assert isinstance(value, float)
         assert value >= 0
-        self.__fitness = value
+        self.__fitness = float(value)
 
     def generate(self):
         """Generate and replace genes randomly"""
