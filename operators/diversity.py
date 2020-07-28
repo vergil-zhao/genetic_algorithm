@@ -23,7 +23,11 @@
 
 import numpy as np
 
-from random import random
+from random import random, randrange
+
+
+def _array(item):
+    return np.array(item if isinstance(item, list) else [item])
 
 
 def divcon_a(items: list, hi: float = 0.1, lo: float = 0.02, **kwargs) -> list:
@@ -42,9 +46,9 @@ def divcon_a(items: list, hi: float = 0.1, lo: float = 0.02, **kwargs) -> list:
     # calculate Euclidean distance between all items
     dist = np.zeros((len(items), len(items)))
     for i in range(len(items) - 1):
-        genes_i = np.array(items[i] if isinstance(items[i], list) else [items[i]])
+        genes_i = _array(items[i])
         for j in range(i + 1, len(items)):
-            genes_j = np.array(items[j] if isinstance(items[j], list) else [items[j]])
+            genes_j = _array(items[j])
             dist[i][j] = np.linalg.norm(genes_j - genes_i)
             dist[j][i] = dist[i][j]
 
@@ -114,19 +118,20 @@ def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **k
 def divcon_c(items: list, dist_const: float = 0.001, **kwargs) -> list:
     """
     Diversity Control Algorithm C
-    Calculate the infinity norm between all items,
+    Penalty depends on calculating the infinity norm between all items.
 
     :param items: is a list of chromosomes(list of genes) or fitness values
     :param dist_const: distance constant, the bigger value the more severe penalty
     :return: list of penalty
     """
+    assert dist_const > 0
 
     # calculate infinity norm between all items
     dist = np.zeros((len(items), len(items)))
     for i in range(len(items) - 1):
-        genes_i = np.array(items[i] if isinstance(items[i], list) else [items[i]])
+        genes_i = _array(items[i])
         for j in range(i + 1, len(items)):
-            genes_j = np.array(items[j] if isinstance(items[j], list) else [items[j]])
+            genes_j = _array(items[j])
             dist[i][j] = np.linalg.norm(genes_j - genes_i, np.inf)
             dist[j][i] = dist[i][j]
 
@@ -134,5 +139,40 @@ def divcon_c(items: list, dist_const: float = 0.001, **kwargs) -> list:
     penalties = []
     for i in range(len(items)):
         penalties.append(1 / np.sum(np.exp(- dist[i] / dist_const)))
+
+    return penalties
+
+
+def divcon_d(items: list, dist_const: float = 0.001, sample: int = 3, **kwargs) -> list:
+    """
+    Diversity Control Algorithm D
+    Similar to C. Only choose a subset of entire list to calculate infinity norm.
+
+    :param items: is a list of chromosomes(list of genes) or fitness values
+    :param dist_const: distance constant, the bigger value the more severe penalty
+    :param sample: number of items to be compared with
+    :return: list of penalty
+    """
+    assert dist_const > 0
+    assert sample > 0
+    assert len(items) > sample
+
+    # Calculate infinity norm between a subset of entire items
+    dist = np.zeros((len(items), sample))
+    for i in range(len(items)):
+        genes_i = _array(items[i])
+        for j in range(sample):
+            while True:
+                index = randrange(len(items))
+                if index == i:
+                    continue
+                genes_j = _array(items[index])
+                dist[i][j] = np.linalg.norm(genes_j - genes_i, np.inf)
+                break
+
+    # calculate penalty
+    penalties = []
+    for i in range(len(items)):
+        penalties.append(1 / (1 + len(items) / sample * np.sum(np.exp(- dist[i] / dist_const))))
 
     return penalties

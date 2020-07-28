@@ -85,7 +85,7 @@ class Config:
             mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
             mutation_sigma: float = 0.2,
             shrink_mutation_range: bool = True,
-            divcon: Callable[[list], List[float]] = div.divcon_b,
+            divcon: Callable[[list], List[float]] = div.divcon_d,
     ):
         """
         Create a GA Config

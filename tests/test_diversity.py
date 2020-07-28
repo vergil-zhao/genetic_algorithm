@@ -29,3 +29,6 @@ class TestDiversity(unittest.TestCase):
 
     def test_divcon_c(self):
         self.assertLess(divcon_c(self.chromosomes), [1, 1, 1, 1, 1, 1])
+
+    def test_divcon_d(self):
+        self.assertLess(divcon_d(self.chromosomes), [1, 1, 1, 1, 1, 1])
