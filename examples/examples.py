@@ -1,3 +1,23 @@
+#  Copyright (C) 2020 All Rights Reserved
+#
+#      This file is part of genetic_algorithm.
+#
+#      Foobar is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      Foobar is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
+#
+#  Written by Vergil Choi <vergil.choi.zyc@gmail.com>, Jul 2020
+#
+
 import statistics
 import math
 import matplotlib.pyplot as plt
@@ -12,7 +32,7 @@ def plot(gen, std, best, mean):
         values = [item.fitness for item in p.chromosomes]
         gen.append(p.generation)
         std.append(statistics.stdev(values))
-        best.append(max(p.chromosomes).fitness)
+        best.append(p.best().raw_fitness)
         mean.append(statistics.mean(values))
         # print(f'{p.generations}: {p.chromosomes}')
 
@@ -79,10 +99,12 @@ def rosenbrock_func():
     best = []
     mean = []
     p.evolve(plot(gen, std, best, mean))
-    best_ans = max(p.chromosomes).decode()
+
+    best_individual = p.best()
+    best_ans = best_individual.decode()
     print(f'BEST:   {best_ans}\n'
           f'RESULT: {rosenbrock(best_ans[0], best_ans[1])}\n'
-          f'FIT:    {max(p.chromosomes).fitness}')
+          f'FIT:    {best_individual.raw_fitness}')
     print(p)
     plot_ga('Min(Rosenbrock Function)', gen, std, best, mean)
 

@@ -9,6 +9,7 @@ verify_ssl = true
 matplotlib = "*"
 click = "*"
 pyyaml = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8"

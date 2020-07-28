@@ -197,7 +197,7 @@ genetic run -p -c config.yml -i ./data/
 - [x] Add `setup.py`  for packaging and commands
 - [x] Saving states for passive call
 - [ ] Add plot for command line
-- [ ] Diversity Control
+- [x] Diversity Control
 - [ ] Scaling (adding evolution pressure)
 - [ ] Add different stop criteria
 - [ ] Add Travis CI config

@@ -1,3 +1,23 @@
+#  Copyright (C) 2020 All Rights Reserved
+#
+#      This file is part of genetic_algorithm.
+#
+#      Foobar is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      Foobar is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
+#
+#  Written by Vergil Choi <vergil.choi.zyc@gmail.com>, Jul 2020
+#
+
 from __future__ import annotations
 
 from typing import List, Optional, Callable, NamedTuple
@@ -61,6 +81,12 @@ class GA(Iterable):
         for i in range(self.config.size):
             self.chromosomes.append(Chromosome(self.config))
 
+    def diversity(self):
+        if self.config.diversity_control:
+            penalties = self.config.divcon([item.genes for item in self.chromosomes])
+            for i, item in enumerate(self.chromosomes):
+                item.penalty = penalties[i]
+
     def create_mating_pool(self) -> List[Chromosome]:
         return self.config.selection(self.chromosomes, self.config.pool_size)
 
@@ -89,10 +115,10 @@ class GA(Iterable):
             i.fitness = self.config.fit(list(i.decode()))
 
     def keep_elitist(self):
-        best_parent = max(self.chromosomes)
-        best_child = max(self.offsprings)
+        best_parent = self.best()
+        best_child = self.best(self.offsprings)
 
-        if best_parent > best_child:
+        if best_parent.raw_fitness > best_child.raw_fitness:
             best_parent.is_alive = True
             self.offsprings.remove(best_child)
 
@@ -138,6 +164,7 @@ class GA(Iterable):
         # TODO: diversity control
         while not self.is_satisfied():
             self.generation += 1
+            self.diversity()
             self.age_grow()
             self.crossover()
             self.mutate()
@@ -145,6 +172,11 @@ class GA(Iterable):
             self.eliminate()
             self.replace()
             callback(self) if callback is not None else None
+
+    def best(self, chromosomes: List[Chromosome] = None) -> Chromosome:
+        if chromosomes is None:
+            return max(self.chromosomes, key=lambda x: x.raw_fitness)
+        return max(chromosomes, key=lambda x: x.raw_fitness)
 
     def __getitem__(self, item: int) -> Chromosome:
         return self.chromosomes[item]
@@ -190,6 +222,7 @@ class GAPassive(GA):
         if self.is_satisfied():
             return
         self.replace() if self.generation > 0 else None
+        self.diversity()
         self.generation += 1
         self.age_grow()
         self.crossover()

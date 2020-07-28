@@ -1,3 +1,23 @@
+#  Copyright (C) 2020 All Rights Reserved
+#
+#      This file is part of genetic_algorithm.
+#
+#      Foobar is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      Foobar is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
+#
+#  Written by Vergil Choi <vergil.choi.zyc@gmail.com>, Jul 2020
+#
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -9,6 +29,7 @@ import operators.mating as mat
 import operators.elimination as eli
 import operators.crossover as cro
 import operators.mutation as mut
+import operators.diversity as div
 
 
 @dataclass
@@ -55,6 +76,7 @@ class Config:
             crossover_rate: float = 0.8,
             mutation_rate: float = 0.05,
             elitism: bool = True,
+            divseriy_control: bool = True,
             max_gen: int = 100,
             selection: Callable[[List, int], List] = sel.fitness_tournament,
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
@@ -63,6 +85,7 @@ class Config:
             mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
             mutation_sigma: float = 0.2,
             shrink_mutation_range: bool = True,
+            divcon: Callable[[list], List[float]] = div.divcon_a,
     ):
         """
         Create a GA Config
@@ -108,7 +131,8 @@ class Config:
         self.pool_size = pool_size
         self.mutation_rate = mutation_rate if mutation_rate <= 1 else 1
         self.fit = fit
-        self.elitism = elitism if elitism <= size else size
+        self.elitism = elitism
+        self.diversity_control = divseriy_control
         self.max_gen = max_gen
         self.selection = selection
         self.elimination = elimination
@@ -117,6 +141,7 @@ class Config:
         self._mutation = mutation
         self.mutation_sigma = mutation_sigma
         self.shrink_mutation_range = shrink_mutation_range
+        self.divcon = divcon
 
         def m(genes: List[float], **kwargs) -> List[float]:
             return self._mutation(genes, self.mutation_rate, **kwargs)

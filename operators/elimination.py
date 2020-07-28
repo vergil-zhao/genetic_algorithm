@@ -1,10 +1,29 @@
+#  Copyright (C) 2020 All Rights Reserved
+#
+#      This file is part of genetic_algorithm.
+#
+#      Foobar is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      Foobar is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
+#
+#  Written by Vergil Choi <vergil.choi.zyc@gmail.com>, Jul 2020
+#
+
 import random
 
-from typing import List
 from operators.utils import tournament
 
 
-def random_pick(items: List, size: int, **kwargs) -> None:
+def random_pick(items: list, size: int, **kwargs) -> None:
     """
     Randomly pick items and set to eliminated
 
@@ -16,7 +35,7 @@ def random_pick(items: List, size: int, **kwargs) -> None:
         item.is_alive = False
 
 
-def fitness_tournament(items: List, size: int, **kwargs) -> None:
+def fitness_tournament(items: list, size: int, **kwargs) -> None:
     """
     Tournament by fitness
 
@@ -28,7 +47,7 @@ def fitness_tournament(items: List, size: int, **kwargs) -> None:
         item.is_alive = False
 
 
-def age_tournament(items: List, size: int, **kwargs) -> None:
+def age_tournament(items: list, size: int, **kwargs) -> None:
     """
     Tournament by age
 
