@@ -9,6 +9,7 @@ pattern:
     end: 3
     precision: 10
 size: 5
+diversity: true
 crossoverRate: 0.75
 mutationRate: 0.06
 elitism: true

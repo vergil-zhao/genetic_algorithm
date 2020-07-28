@@ -20,3 +20,9 @@ class TestDiversity(unittest.TestCase):
             divcon_a(self.chromosomes, 0.1, 0.1),
             [0.5, 0.5, 0.25, 0.25, 0.25, 0.25]
         )
+
+    def test_divcon_b(self):
+        self.assertListEqual(
+            divcon_b(self.chromosomes),
+            [0.5, 0.5, 0.25, 0.25, 0.25, 0.25]
+        )

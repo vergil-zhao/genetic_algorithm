@@ -30,7 +30,7 @@ S = TypeVar('S')
 def print_name(func):
     def wrapper(*args, **kwargs):
         print(func.__name__)
-        func(*args, **kwargs)
+        return func(*args, **kwargs)
     return wrapper
 
 

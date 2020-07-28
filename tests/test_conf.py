@@ -28,6 +28,7 @@ class TestCrossover(TestCase):
         'mutationRate': 0.01,
         'elitism': True,
         'maxGen': 10,
+        'diversity': True,
     }
 
     def test_from_dict(self):

@@ -82,7 +82,7 @@ class GA(Iterable):
             self.chromosomes.append(Chromosome(self.config))
 
     def diversity(self):
-        if self.config.diversity_control:
+        if self.config.diversity:
             penalties = self.config.divcon([item.genes for item in self.chromosomes])
             for i, item in enumerate(self.chromosomes):
                 item.penalty = penalties[i]

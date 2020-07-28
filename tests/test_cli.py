@@ -33,6 +33,7 @@ class TestCLI(TestCase):
         'mutationRate': 0.06,
         'elitism': 1,
         'maxGen': 100,
+        'diversity': True,
     }
 
     ga_data = {

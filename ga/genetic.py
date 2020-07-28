@@ -62,7 +62,7 @@ class Chromosome(Iterable):
 
     @property
     def fitness(self):
-        if self.config.diversity_control:
+        if self.config.diversity:
             return self.__fitness * self.penalty
         return self.__fitness
 

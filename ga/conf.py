@@ -76,7 +76,7 @@ class Config:
             crossover_rate: float = 0.8,
             mutation_rate: float = 0.05,
             elitism: bool = True,
-            divseriy_control: bool = True,
+            diversity: bool = True,
             max_gen: int = 100,
             selection: Callable[[List, int], List] = sel.fitness_tournament,
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
@@ -85,7 +85,7 @@ class Config:
             mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
             mutation_sigma: float = 0.2,
             shrink_mutation_range: bool = True,
-            divcon: Callable[[list], List[float]] = div.divcon_a,
+            divcon: Callable[[list], List[float]] = div.divcon_b,
     ):
         """
         Create a GA Config
@@ -98,6 +98,7 @@ class Config:
                                 to make the pool size larger than 0.
         :param mutation_rate: How big the change the offsprings will be mutate, float [0, 1]
         :param elitism: Keep the best n items for next iteration
+        :param diversity: Diversity control switch
         :param max_gen: Maximum generations, 0 means no limit
         :param selection: Selection operator
         :param elimination: Elimination operator
@@ -132,7 +133,7 @@ class Config:
         self.mutation_rate = mutation_rate if mutation_rate <= 1 else 1
         self.fit = fit
         self.elitism = elitism
-        self.diversity_control = divseriy_control
+        self.diversity = diversity
         self.max_gen = max_gen
         self.selection = selection
         self.elimination = elimination
@@ -154,11 +155,12 @@ class Config:
 
         return Config(
             gene_pattern=[FloatItem.from_dict(item) for item in pattern],
-            size=data.get('size') or 100,
-            crossover_rate=data.get('crossoverRate') or 0.8,
-            mutation_rate=data.get('mutationRate') or 0.05,
-            elitism=data.get('elitism') or 1,
-            max_gen=data.get('maxGen') or 100,
+            size=data.get('size', 100),
+            crossover_rate=data.get('crossoverRate', 0.8),
+            mutation_rate=data.get('mutationRate', 0.05),
+            elitism=data.get('elitism', True),
+            max_gen=data.get('maxGen', 100),
+            diversity=data.get('diversity', True),
         )
 
     def serialize(self):
@@ -169,6 +171,7 @@ class Config:
             'mutationRate': self.mutation_rate,
             'elitism': self.elitism,
             'maxGen': self.max_gen,
+            'diversity': self.diversity,
             # 'selection': {
             #     'operator': None,
             #     'tournament': None,
