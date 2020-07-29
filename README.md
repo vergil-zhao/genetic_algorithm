@@ -49,7 +49,7 @@ genetic_algorithm
     └─────────────────────┘
                ↓
     ┌─────────────────────┐
- ┌─>│  Diversity Control  │  TODO
+ ┌─>│  Diversity Control  │  penalize individuals who have many neighbors
  │  └─────────────────────┘
  │             ↓
  │  ┌─────────────────────┐
