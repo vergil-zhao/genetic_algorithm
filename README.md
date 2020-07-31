@@ -204,6 +204,8 @@ genetic run -p -c config.yml -i ./data/
 - [ ] Implement Multi-Objective
 - [ ] Seperate population to regions
 - [ ] Use higher precision `decimal`
+- [ ] Random search for vicinity
+- [ ] Trim GA - Nelder-Mead
 
 
 ## Reference
