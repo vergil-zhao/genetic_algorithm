@@ -30,6 +30,7 @@ import operators.elimination as eli
 import operators.crossover as cro
 import operators.mutation as mut
 import operators.diversity as div
+import operators.scaling as scl
 
 
 @dataclass
@@ -77,6 +78,7 @@ class Config:
             mutation_rate: float = 0.05,
             elitism: bool = True,
             diversity: bool = True,
+            scaling: bool = True,
             max_gen: int = 100,
             selection: Callable[[List, int], List] = sel.fitness_tournament,
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
@@ -84,8 +86,9 @@ class Config:
             crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = cro.sbx,
             mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
             mutation_sigma: float = 0.2,
-            shrink_mutation_range: bool = True,
+            mutation_range_shrink: bool = True,
             divcon: Callable[[list], List[float]] = div.divcon_d,
+            scale: Callable[[List[float]], List[float]] = scl.offset,
     ):
         """
         Create a GA Config
@@ -106,7 +109,7 @@ class Config:
         :param crossover: Crossover operator
         :param mutation: Mutation operator
         :param mutation_sigma: The sigma value for normal distribution, only effective when operator is norm_dist
-        :param shrink_mutation_range: Change mutation_sigma gradually by every generation
+        :param mutation_range_shrink: Change mutation_sigma gradually by every generation
         """
         if gene_pattern is None:
             raise ValueError('"pattern" has to be a list of item, eg. [FloatItem(min=0.1, max=1, precision=8)]')
@@ -134,6 +137,7 @@ class Config:
         self.fit = fit
         self.elitism = elitism
         self.diversity = diversity
+        self.scaling = scaling
         self.max_gen = max_gen
         self.selection = selection
         self.elimination = elimination
@@ -141,8 +145,9 @@ class Config:
         self.crossover = crossover
         self._mutation = mutation
         self.mutation_sigma = mutation_sigma
-        self.shrink_mutation_range = shrink_mutation_range
+        self.mutation_range_shrink = mutation_range_shrink
         self.divcon = divcon
+        self.scale = scale
 
         def m(genes: List[float], **kwargs) -> List[float]:
             return self._mutation(genes, self.mutation_rate, **kwargs)
@@ -191,6 +196,6 @@ class Config:
             # 'mutation': {
             #     'operator': None,
             #     'sigma': self.mutation_sigma,
-            #     'shrink': self.shrink_mutation_range,
+            #     'shrink': self.mutation_range_shrink,
             # },
         }

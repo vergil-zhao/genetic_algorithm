@@ -198,10 +198,11 @@ genetic run -p -c config.yml -i ./data/
 - [x] Saving states for passive call
 - [ ] Add plot for command line
 - [x] Diversity Control
-- [ ] Scaling (adding evolution pressure)
+- [x] Scaling (adding evolution pressure)
 - [ ] Add different stop criteria
 - [ ] Add Travis CI config
 - [ ] Implement Multi-Objective
+- [ ] Seperate population to regions
 
 
 ## Reference

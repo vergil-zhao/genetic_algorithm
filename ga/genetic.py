@@ -50,6 +50,7 @@ class Chromosome(Iterable):
         self.is_alive = True
         self.fitness = 0.0
         self.penalty = 1.0
+        self.scale = lambda x: x
         self.config = config
         if genes is not None:
             self.genes = repair(genes)
@@ -62,9 +63,12 @@ class Chromosome(Iterable):
 
     @property
     def fitness(self):
+        result = self.__fitness
         if self.config.diversity:
-            return self.__fitness * self.penalty
-        return self.__fitness
+            result *= self.penalty
+        if self.config.scaling:
+            result = self.scale(result)
+        return result if result >= 0 else 0
 
     @fitness.setter
     def fitness(self, value: float):

@@ -39,7 +39,7 @@ class GA(Iterable):
         ↓
     Initialization: generate chromosomes
         ↓
-    * Diversity Control: TODO
+    * Diversity Control: penalize individuals who have many neighbors
         ↓
     Scaling: TODO
         ↓
@@ -87,6 +87,12 @@ class GA(Iterable):
             for i, item in enumerate(self.chromosomes):
                 item.penalty = penalties[i]
 
+    def scale(self):
+        if self.config.scaling:
+            scale = self.config.scale([item.fitness for item in self.chromosomes])
+            for item in self.chromosomes:
+                item.scale = scale
+
     def create_mating_pool(self) -> List[Chromosome]:
         return self.config.selection(self.chromosomes, self.config.pool_size)
 
@@ -102,7 +108,7 @@ class GA(Iterable):
         self.offsprings = self.config.mating(mating_pool)
 
     def mutate(self):
-        if self.config.shrink_mutation_range:
+        if self.config.mutation_range_shrink:
             sigma = (1 - self.generation / self.config.max_gen) * self.config.mutation_sigma
         else:
             sigma = self.config.mutation_sigma
@@ -165,6 +171,7 @@ class GA(Iterable):
         while not self.is_satisfied():
             self.generation += 1
             self.diversity()
+            self.scale()
             self.age_grow()
             self.crossover()
             self.mutate()
@@ -222,8 +229,9 @@ class GAPassive(GA):
         if self.is_satisfied():
             return
         self.replace() if self.generation > 0 else None
-        self.diversity()
         self.generation += 1
+        self.diversity()
+        self.scale()
         self.age_grow()
         self.crossover()
         self.mutate()
