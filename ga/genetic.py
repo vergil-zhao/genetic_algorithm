@@ -97,15 +97,18 @@ class Chromosome(Iterable):
         assert parameters is not None
         assert len(parameters) == len(self.config.gene_pattern), 'incompatitive parameters'
 
-        alive = data.get('alive')
-        assert isinstance(alive, bool)
+        self.is_alive = data.get('alive')
+        assert isinstance(self.is_alive, bool)
 
         result = []
         for i, item in enumerate(self.config.gene_pattern):
             result.append((parameters[i] - item.start) / (item.end - item.start))
         self.genes = repair(result)
-        self.fitness = data.get('fitness')
-        self.is_alive = alive
+
+        self.fitness = data.get('fitness', 0)
+
+        self.age = data.get('age', 0)
+        assert isinstance(self.age, int)
 
     @staticmethod
     def from_dict(config: Config, data: dict):
@@ -130,6 +133,7 @@ class Chromosome(Iterable):
             'parameters': self.decode(),
             'fitness': self.fitness,
             'alive': self.is_alive,
+            'age': self.age,
         }
 
     def __add__(self, other: Chromosome) -> (Chromosome, Chromosome):

@@ -20,7 +20,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, Callable, NamedTuple
+from typing import List, Optional, Callable
 from collections import Iterable
 
 from operators.utils import prettify_matrix
@@ -115,7 +115,6 @@ class GA(Iterable):
         for offspring in self.offsprings:
             offspring.mutate(sigma=sigma)
 
-    # TODO: scaling, add evolution pressure
     def evaluate(self, chromosomes: List[Chromosome]):
         for i in chromosomes:
             i.fitness = self.config.fit(list(i.decode()))
@@ -152,8 +151,6 @@ class GA(Iterable):
         self.generation = 0
         self.evaluate(self.chromosomes)
         callback(self) if callback is not None else None
-        # TODO: different way to stop
-        # TODO: diversity control
         while not self.is_satisfied():
             self.generation += 1
             self.diversity()
@@ -253,4 +250,5 @@ class GAPassive(GA):
             'offsprings': [item.serialize() for item in self.offsprings],
             'generation': self.generation,
             'satisfied': self.is_satisfied(),
+            'best': self.best().serialize(),
         }

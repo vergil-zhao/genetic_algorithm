@@ -51,6 +51,7 @@ class TestGenetic(unittest.TestCase):
             'parameters': [0.0, -1.0, -100.0],
             'fitness': 1.0,
             'alive': True,
+            'age': 0,
         })
         self.assertListEqual(c.genes, [0.0, 0.0, 0.0])
         self.assertListEqual(c.decode(), [0.0, -1.0, -100.0])
@@ -59,6 +60,7 @@ class TestGenetic(unittest.TestCase):
             'parameters': [0.5, -0.5, 0],
             'fitness': 2.0,
             'alive': True,
+            'age': 0,
         })
         self.assertListEqual(c.genes, [0.5, 0.5, 0.5])
         self.assertListEqual(c.decode(), [0.5, -0.5, 0])
@@ -69,4 +71,5 @@ class TestGenetic(unittest.TestCase):
             'parameters': [0.0, -1.0, -100.0],
             'fitness': 0.0,
             'alive': True,
+            'age': 0,
         })

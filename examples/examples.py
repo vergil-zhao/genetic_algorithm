@@ -95,10 +95,11 @@ def rosenbrock_func():
 
     best_individual = p.best()
     best_ans = best_individual.decode()
-    print(f'BEST:   {best_ans}\n'
-          f'RESULT: {rosenbrock(best_ans[0], best_ans[1])}\n'
-          f'FIT:    {best_individual.raw_fitness}')
-    print(p)
+    print(f'BEST:     {best_ans}\n'
+          f'RESULT:   {rosenbrock(best_ans[0], best_ans[1])}\n'
+          f'FIT:      {best_individual.raw_fitness}\n'
+          f'FIT MEAN: {mean[-1]}\n'
+          f'FIT STD:  {std[-1]}\n')
     plot_ga('Min(Rosenbrock Function)', gen, std, best, mean)
 
 

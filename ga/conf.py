@@ -177,6 +177,7 @@ class Config:
             'elitism': self.elitism,
             'maxGen': self.max_gen,
             'diversity': self.diversity,
+            'scaling': self.scaling,
             # 'selection': {
             #     'operator': None,
             #     'tournament': None,

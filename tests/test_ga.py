@@ -90,8 +90,15 @@ class TestGA(unittest.TestCase):
                 'parameters': [0.0, 0.0, -5.0],
                 'fitness': 0.0,
                 'alive': True,
+                'age': 0,
             } for _i in range(len(self.chromosomes))],
             'offsprings': [],
             'generation': 0,
             'satisfied': False,
+            'best': {
+                'parameters': [0.0, 0.0, -5.0],
+                'fitness': 0.0,
+                'alive': True,
+                'age': 0,
+            }
         })

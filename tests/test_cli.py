@@ -34,6 +34,7 @@ class TestCLI(TestCase):
         'elitism': 1,
         'maxGen': 100,
         'diversity': True,
+        'scaling': True,
     }
 
     ga_data = {
@@ -42,31 +43,42 @@ class TestCLI(TestCase):
                 "parameters": [0.0, 0.0, 0.0],
                 "fitness": 1.0,
                 "alive": True,
+                "age": 0,
             },
             {
                 "parameters": [0.0, 1.0, 2.0],
                 "fitness": 1.0,
                 "alive": True,
+                "age": 0,
             },
             {
                 "parameters": [0.5, 0.5, 1.5],
                 "fitness": 1.0,
                 "alive": True,
+                "age": 0,
             },
             {
                 "parameters": [0.1, 1.1, 2.1],
                 "fitness": 1.0,
                 "alive": True,
+                "age": 0,
             },
             {
                 "parameters": [0.2, 1.2, 2.2],
                 "fitness": 1.0,
                 "alive": True,
+                "age": 0,
             }
         ],
         'offsprings': [],
         'generation': 0,
         'satisfied': False,
+        'best': {
+            "parameters": [0.2, 1.2, 2.2],
+            "fitness": 1.0,
+            "alive": True,
+            "age": 0,
+        }
     }
 
     def setUp(self) -> None:

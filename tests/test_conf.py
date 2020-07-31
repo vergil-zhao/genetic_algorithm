@@ -29,6 +29,7 @@ class TestCrossover(TestCase):
         'elitism': True,
         'maxGen': 10,
         'diversity': True,
+        'scaling': True,
     }
 
     def test_from_dict(self):
