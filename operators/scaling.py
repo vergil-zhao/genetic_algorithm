@@ -24,11 +24,25 @@ from typing import List, Callable
 
 
 def offset(items: List[float], **kwargs) -> Callable[[float], float]:
+    """
+    Move down all items by a min(items)
+
+    :param items: fitness values
+    :return: mapping function
+    """
     b = min(items)
     return lambda x: x - b
 
 
 def linear_avg(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+    """
+    Keep average(items) unchanged, scale up items greater then avg,
+    scale down items lesser then avg.
+
+    :param items: fitness values
+    :param k: scale factor
+    :return: mapping function
+    """
     assert k >= 1
 
     avg = np.average(items)
@@ -38,6 +52,14 @@ def linear_avg(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
 
 
 def linear_med(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+    """
+    Keep median(items) unchanged, scale up items greater then med,
+    scale down items lesser then med.
+
+    :param items: fitness values
+    :param k: scale factor
+    :return: mapping function
+    """
     assert k >= 1
 
     med = np.median(items)
@@ -47,6 +69,13 @@ def linear_med(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
 
 
 def linear_map(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+    """
+    A linear scaling maps min(items) to 1, maps max(items) to k.
+
+    :param items: fitness values
+    :param k: scale factor
+    :return: mapping function
+    """
     assert k >= 1
 
     m = min(items)
@@ -56,6 +85,16 @@ def linear_map(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
 
 
 def truncate(items: List[float], factor: float = 2.0, **kwargs) -> Callable[[float], float]:
+    """
+    Truncate lower part of items which smaller(greater) than average.
+
+    :param items: fitness values
+    :param factor: offset factor depending on standard deviation
+                   indicates how far from average.
+                   If positive, cut point is below the average, otherwise
+                   above the average.
+    :return: mapping function
+    """
     std = np.std(items)
     avg = np.average(items)
     b = avg - factor * std
@@ -63,6 +102,16 @@ def truncate(items: List[float], factor: float = 2.0, **kwargs) -> Callable[[flo
 
 
 def quadratic(items: List[float], hi: float = 10.0, lo: float = 0.01, **kwargs) -> Callable[[float], float]:
+    """
+    Non-linear mapping. Map min(items) to lo, max(items) to hi, average(items) to 1.
+    The function is quadratic.
+
+    :param items:
+    :param hi:
+    :param lo:
+    :param kwargs:
+    :return:
+    """
     f_max = max(items)
     f_avg = np.average(items)
     f_min = min(items)
