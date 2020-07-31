@@ -70,11 +70,14 @@ def wave_func():
     best = []
     mean = []
     p.evolve(plot(gen, std, best, mean))
-    best_ans = max(p.chromosomes).decode()
-    print(f'BEST:   {best_ans}\n'
-          f'RESULT: {wave(best_ans[0])}\n'
-          f'FIT:    {max(p.chromosomes).fitness}')
-    print(p)
+
+    best_individual = p.best()
+    best_ans = best_individual.decode()
+    print(f'BEST:     {best_ans}\n'
+          f'RESULT:   {wave(best_ans[0])}\n'
+          f'FIT:      {best_individual.raw_fitness}'
+          f'FIT MEAN: {mean[-1]}\n'
+          f'FIT STD:  {std[-1]}\n')
     plot_ga('Min(Wave Function)', gen, std, best, mean)
 
 
