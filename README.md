@@ -28,9 +28,16 @@ genetic_algorithm
  │  ├ mutation.py ----- Mutation operators control how the genes of offsprings mutate.
  │  │                   Contains random, normal distribution, etc.
  │  │
- │  └ elimination.py -- Elimination operators control which parent will be 
- │                      eliminated and replaced by offsprings for next generation. 
- │                      Contains fitness, age, etc.
+ │  ├ elimination.py -- Elimination operators control which parent will be 
+ │  │                   eliminated and replaced by offsprings for next generation. 
+ │  │                   Contains fitness, age, etc.
+ │  │
+ │  ├ diversity.py ---- Diversity operators, calculate gene or fitness similarity,
+ │  │                   then penalize those who have many neighbors.
+ │  │
+ │  └ scaling.py ------ Operators scaling the fitness value to provide evolution
+ │                      pressure, those who have bad fitness value are more easily
+ │                      eliminated.
  │
  ├ cli
  │
