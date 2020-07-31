@@ -7,6 +7,9 @@ class A:
         self.property_1 = i
         self.property_2 = {'key': 10}
 
+    def __repr__(self):
+        return f'<A property_1={self.property_1}>'
+
 
 class TestUtils(unittest.TestCase):
 
@@ -15,9 +18,9 @@ class TestUtils(unittest.TestCase):
         self.assertListEqual(wheel, [1, 3, 6, 10, 15])
 
     def test_pick_from_wheel(self):
-        wheel = utils.create_wheel([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        wheel = utils.create_wheel([0, 0, 0, 0, 0, 10, 0, 0, 0, 0])
 
-        items = [A() for _i in range(10)]
+        items = [A(i) for i in range(10)]
 
         pool = utils.pick_from_wheel(items, wheel, 5)
 
@@ -25,6 +28,9 @@ class TestUtils(unittest.TestCase):
             for j in range(5):
                 self.assertIsNot(items[i], pool[j])
                 self.assertIsNot(items[i].property_2, pool[j].property_2)
+
+        for item in pool:
+            self.assertEqual(item.property_1, 5)
 
     def test_tournament(self):
         items = [A(i) for i in range(10)]

@@ -53,7 +53,7 @@ genetic_algorithm
  │  └─────────────────────┘
  │             ↓
  │  ┌─────────────────────┐
- │  │       Scaling       │  TODO
+ │  │       Scaling       │  Scale fitness value to provide evolution pressure
  │  └─────────────────────┘
  │             ↓
  │  ┌─────────────────────┐
@@ -203,6 +203,7 @@ genetic run -p -c config.yml -i ./data/
 - [ ] Add Travis CI config
 - [ ] Implement Multi-Objective
 - [ ] Seperate population to regions
+- [ ] Use higher precision `decimal`
 
 
 ## Reference

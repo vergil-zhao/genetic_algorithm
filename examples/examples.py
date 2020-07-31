@@ -34,8 +34,6 @@ def plot(gen, std, best, mean):
         std.append(statistics.stdev(values))
         best.append(p.best().raw_fitness)
         mean.append(statistics.mean(values))
-        # print(f'{p.generations}: {p.chromosomes}')
-
     return update
 
 
@@ -65,8 +63,6 @@ def wave_func():
         gene_pattern=[FloatItem(0, 100, 5)],
         fit=lambda data: 100 / wave(data[0]),
         size=20,
-        max_gen=100,
-        elitism=True
     ))
 
     gen = []
@@ -89,9 +85,6 @@ def rosenbrock_func():
     p = GA(Config(
         gene_pattern=[FloatItem(-2, 2, 10), FloatItem(-1, 3, 10)],
         fit=lambda data: 1 / (rosenbrock(data[0], data[1]) + 0.001),
-        size=100,
-        max_gen=100,
-        elitism=True
     ))
 
     gen = []

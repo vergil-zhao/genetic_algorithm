@@ -41,7 +41,7 @@ class GA(Iterable):
         ↓
     * Diversity Control: penalize individuals who have many neighbors
         ↓
-    Scaling: TODO
+    Scaling: Scale fitness value to provide evolution pressure
         ↓
     Selection: create a mating pool for offsprings
         ↓
@@ -139,22 +139,8 @@ class GA(Iterable):
             assert i < len(self.chromosomes)
             self.chromosomes[i] = offspring
 
-    def rescale_fitness(self):
-        data = [item.fitness for item in self.chromosomes]
-        largest = max(data)
-        smallest = min(data)
-        difference = largest - smallest
-        if difference == 0:
-            difference = 1
-        return [(i - smallest) / difference for i in data]
-
     # TODO: Standard Deviation?
     def is_satisfied(self) -> bool:
-        # data = self.rescale_fitness()
-        # print(f'FIT:  {data}')
-        # print(f'MEAN: {statistics.mean(data)}')
-        # print(f'STD:  {statistics.stdev(data)}')
-        # return statistics.stdev(data) < 0.1
         return self.generation >= self.config.max_gen
 
     def evolve(self, callback: Optional[Callable[[GA], None]] = None) -> None:
