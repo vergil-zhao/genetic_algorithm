@@ -1,8 +1,8 @@
 import unittest
-import operators.selection as slc
 
-from ga.genetic import Chromosome
+import operators.selection as slc
 from ga.conf import Config, FloatItem
+from ga.genetic import Chromosome
 
 
 class TestSelection(unittest.TestCase):

@@ -23,7 +23,7 @@ import random
 from operators.utils import create_wheel, pick_from_wheel, tournament
 
 
-def random_pick(items: list, size: int, **kwargs) -> list:
+def random_pick(items: list, size: int, **_) -> list:
     """
     Randomly pick items to create a pool.
 
@@ -34,7 +34,7 @@ def random_pick(items: list, size: int, **kwargs) -> list:
     return random.sample(items, size)
 
 
-def roulette_wheel(items: list, size: int, **kwargs) -> list:
+def roulette_wheel(items: list, size: int, **_) -> list:
     """
     Pick item randomly at a roulette wheel of which width is the fitness value.
 
@@ -46,7 +46,7 @@ def roulette_wheel(items: list, size: int, **kwargs) -> list:
     return pick_from_wheel(items, wheel, size)
 
 
-def fitness_tournament(items: list, size: int, **kwargs) -> list:
+def fitness_tournament(items: list, size: int, **_) -> list:
     """
     Pick item by rounds of tournament.
 
@@ -57,7 +57,7 @@ def fitness_tournament(items: list, size: int, **kwargs) -> list:
     return tournament(items, [item.fitness for item in items], size)
 
 
-def rank(items: list, size: int, **kwargs) -> list:
+def rank(items: list, size: int, **_) -> list:
     """
     Derived from roulette wheel, roulette created by rank number,
     the higher fitness value the rank number will be.

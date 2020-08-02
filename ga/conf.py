@@ -21,16 +21,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Callable, Tuple, Any, Optional
 from math import floor
+from typing import List, Callable, Tuple, Any, Optional
 
-import operators.selection as sel
-import operators.mating as mat
-import operators.elimination as eli
 import operators.crossover as cro
-import operators.mutation as mut
 import operators.diversity as div
+import operators.elimination as eli
+import operators.mating as mat
+import operators.mutation as mut
 import operators.scaling as scl
+import operators.selection as sel
 
 
 @dataclass
@@ -84,7 +84,7 @@ class Config:
             elimination: Callable[[List, int], None] = eli.fitness_tournament,
             mating: Callable[[List], List] = mat.random_mating_once,
             crossover: Callable[[List[float], List[float]], Tuple[List[float], List[float]]] = cro.sbx,
-            mutation: Callable[[List[float], float, Any], List[float]] = mut.norm_dist,
+            mutation: Callable[[List[float], float, Any], List[float]] = mut.vector_abs,
             mutation_sigma: float = 0.2,
             mutation_range_shrink: bool = True,
             divcon: Callable[[list], List[float]] = div.divcon_d,
@@ -151,6 +151,7 @@ class Config:
 
         def m(genes: List[float], **kwargs) -> List[float]:
             return self._mutation(genes, self.mutation_rate, **kwargs)
+
         self.mutation = m
 
     @staticmethod

@@ -1,4 +1,5 @@
 import unittest
+
 from operators import utils
 
 
@@ -55,4 +56,3 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(len(genes), len(repaired))
         for i in range(len(repaired)):
             self.assertAlmostEqual(repaired[i], expected[i])
-

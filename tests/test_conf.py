@@ -1,10 +1,9 @@
-from ga.conf import Config, FloatItem
-
 from unittest import TestCase
+
+from ga.conf import Config, FloatItem
 
 
 class TestCrossover(TestCase):
-
     config_map = {
         'pattern': [
             {

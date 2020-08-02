@@ -23,7 +23,7 @@ import random
 from typing import List
 
 
-def random_mutate(genes: List[float], rate: float, **kwargs) -> List[float]:
+def random_mutate(genes: List[float], rate: float, **_) -> List[float]:
     """
     Randomly change a gene value by a fixed probability
 
@@ -38,7 +38,7 @@ def random_mutate(genes: List[float], rate: float, **kwargs) -> List[float]:
     return offspring
 
 
-def partial_abs(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -> List[float]:
+def partial_abs(genes: List[float], rate: float, sigma: float = 0.2, **_) -> List[float]:
     """
     Randomly change a gene value by a normal distributed probability,
     center is the gene itself
@@ -57,7 +57,7 @@ def partial_abs(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -
     return offspring
 
 
-def partial_relative(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -> List[float]:
+def partial_relative(genes: List[float], rate: float, sigma: float = 0.2, **_) -> List[float]:
     """
     Randomly change a gene value relatively
     by a normal distributed random number.
@@ -76,7 +76,7 @@ def partial_relative(genes: List[float], rate: float, sigma: float = 0.2, **kwar
     return offspring
 
 
-def vector_abs(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -> List[float]:
+def vector_abs(genes: List[float], rate: float, sigma: float = 0.2, **_) -> List[float]:
     """
     Randomly change every gene value
     by a normal distributed random number.
@@ -92,7 +92,7 @@ def vector_abs(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) ->
     return [genes[i] + random.gauss(0, sigma) for i in range(len(genes))]
 
 
-def vector_relative(genes: List[float], rate: float, sigma: float = 0.2, **kwargs) -> List[float]:
+def vector_relative(genes: List[float], rate: float, sigma: float = 0.2, **_) -> List[float]:
     """
     Randomly change every gene value relatively
     by a normal distributed random number.

@@ -21,16 +21,17 @@
 #  https://engineering.purdue.edu/~sudhoff/Software%20Distribution/GOSET%202.3%20manual.pdf
 #
 
-import numpy as np
-
 from random import random, randrange
+from typing import List
+
+import numpy as np
 
 
 def _array(item):
     return np.array(item if isinstance(item, list) else [item])
 
 
-def divcon_a(items: list, hi: float = 0.1, lo: float = 0.02, **kwargs) -> list:
+def divcon_a(items: list, hi: float = 0.1, lo: float = 0.02, **_) -> list:
     """
     Diversity Control Algorithm A
     Calculate distances between all items, set penalty to those who have
@@ -65,7 +66,7 @@ def divcon_a(items: list, hi: float = 0.1, lo: float = 0.02, **kwargs) -> list:
     return penalties
 
 
-def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **kwargs) -> list:
+def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **_) -> list:
     """
     Diversity Control Algorithm B
     Calculate weighted sum for all items with a randomly generated weight
@@ -97,7 +98,7 @@ def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **k
         sums = [i % 1 for i in sums]
 
         # allocate bins
-        groups = [[] for _i in range(bin_num)]
+        groups: List[List[int]] = [[] for _ in range(bin_num)]
         for i, item in enumerate(sums):
             for j in reversed(range(bin_num)):
                 if item >= bins[j]:
@@ -115,7 +116,7 @@ def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **k
     return penalties
 
 
-def divcon_c(items: list, dist_const: float = 0.001, **kwargs) -> list:
+def divcon_c(items: list, dist_const: float = 0.001, **_) -> list:
     """
     Diversity Control Algorithm C
     Penalty depends on calculating the infinity norm between all items.
@@ -143,7 +144,7 @@ def divcon_c(items: list, dist_const: float = 0.001, **kwargs) -> list:
     return penalties
 
 
-def divcon_d(items: list, dist_const: float = 0.001, sample: int = 3, **kwargs) -> list:
+def divcon_d(items: list, dist_const: float = 0.001, sample: int = 3, **_) -> list:
     """
     Diversity Control Algorithm D
     Similar to C. Only choose a subset of entire list to calculate infinity norm.

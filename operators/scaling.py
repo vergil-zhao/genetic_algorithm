@@ -18,12 +18,12 @@
 #  Written by Vergil Choi <vergil.choi.zyc@gmail.com>, Jul 2020
 #
 
-import numpy as np
-
 from typing import List, Callable
 
+import numpy as np
 
-def offset(items: List[float], **kwargs) -> Callable[[float], float]:
+
+def offset(items: List[float], **_) -> Callable[[float], float]:
     """
     Move down all items by a min(items)
 
@@ -34,7 +34,7 @@ def offset(items: List[float], **kwargs) -> Callable[[float], float]:
     return lambda x: x - b
 
 
-def linear_avg(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+def linear_avg(items: List[float], k: float = 10.0, **_) -> Callable[[float], float]:
     """
     Keep average(items) unchanged, scale up items greater then avg,
     scale down items lesser then avg.
@@ -51,7 +51,7 @@ def linear_avg(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
     return lambda x: a * x + b
 
 
-def linear_med(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+def linear_med(items: List[float], k: float = 10.0, **_) -> Callable[[float], float]:
     """
     Keep median(items) unchanged, scale up items greater then med,
     scale down items lesser then med.
@@ -68,7 +68,7 @@ def linear_med(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
     return lambda x: a * x + b
 
 
-def linear_map(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float], float]:
+def linear_map(items: List[float], k: float = 10.0, **_) -> Callable[[float], float]:
     """
     A linear scaling maps min(items) to 1, maps max(items) to k.
 
@@ -84,7 +84,7 @@ def linear_map(items: List[float], k: float = 10.0, **kwargs) -> Callable[[float
     return lambda x: a * x + b
 
 
-def truncate(items: List[float], factor: float = 2.0, **kwargs) -> Callable[[float], float]:
+def truncate(items: List[float], factor: float = 2.0, **_) -> Callable[[float], float]:
     """
     Truncate lower part of items which smaller(greater) than average.
 
@@ -101,16 +101,15 @@ def truncate(items: List[float], factor: float = 2.0, **kwargs) -> Callable[[flo
     return lambda x: x - b
 
 
-def quadratic(items: List[float], hi: float = 10.0, lo: float = 0.01, **kwargs) -> Callable[[float], float]:
+def quadratic(items: List[float], hi: float = 10.0, lo: float = 0.01, **_) -> Callable[[float], float]:
     """
     Non-linear mapping. Map min(items) to lo, max(items) to hi, average(items) to 1.
     The function is quadratic.
 
-    :param items:
-    :param hi:
-    :param lo:
-    :param kwargs:
-    :return:
+    :param items: fitness values
+    :param hi: higher bound
+    :param lo: lower bound
+    :return: mapping function
     """
     f_max = max(items)
     f_avg = np.average(items)

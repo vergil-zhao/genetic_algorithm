@@ -23,7 +23,7 @@ import random
 from operators.utils import tournament
 
 
-def random_pick(items: list, size: int, **kwargs) -> None:
+def random_pick(items: list, size: int, **_) -> None:
     """
     Randomly pick items and set to eliminated
 
@@ -35,7 +35,7 @@ def random_pick(items: list, size: int, **kwargs) -> None:
         item.is_alive = False
 
 
-def fitness_tournament(items: list, size: int, **kwargs) -> None:
+def fitness_tournament(items: list, size: int, **_) -> None:
     """
     Tournament by fitness
 
@@ -47,7 +47,7 @@ def fitness_tournament(items: list, size: int, **kwargs) -> None:
         item.is_alive = False
 
 
-def age_tournament(items: list, size: int, **kwargs) -> None:
+def age_tournament(items: list, size: int, **_) -> None:
     """
     Tournament by age
 

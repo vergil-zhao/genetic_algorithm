@@ -1,15 +1,13 @@
-import os
 import json
+import os
 import shutil
-
 from pathlib import Path
-from cli.main import *
-
 from unittest import TestCase
+
+from cli import functions
 
 
 class TestCLI(TestCase):
-
     config_data = {
         'pattern': [
             {
@@ -90,10 +88,10 @@ class TestCLI(TestCase):
         return self.cwd.joinpath(path)
 
     def test_load_config(self):
-        self.assertDictEqual(load_config(self.get_path('examples/config_example.yml')), self.config_data)
+        self.assertDictEqual(functions.load_config(self.get_path('examples/config_example.yml')), self.config_data)
 
     def test_load_input_file(self):
-        self.assertDictEqual(load_input_file(self.get_path('examples/input_example.json')), self.ga_data)
+        self.assertDictEqual(functions.load_input_file(self.get_path('examples/input_example.json')), self.ga_data)
 
     def test_load_input_file_from_dir(self):
         path = self.get_path('test_input/')
@@ -102,20 +100,20 @@ class TestCLI(TestCase):
             path.joinpath(f'{i:03}.json').touch()
         with open(path.joinpath(f'010.json'), 'w') as file:
             json.dump(self.ga_data, file)
-        self.assertDictEqual(load_input_file(path), self.ga_data)
+        self.assertDictEqual(functions.load_input_file(path), self.ga_data)
         shutil.rmtree(path)
 
     def test_dump_output(self):
         path = self.get_path('test_output.json')
-        dump_output(path, self.ga_data)
+        functions.dump_output(path, self.ga_data)
         self.assertTrue(path.is_file())
-        self.assertDictEqual(load_input_file(path), self.ga_data)
+        self.assertDictEqual(functions.load_input_file(path), self.ga_data)
         os.remove(path)
 
     def test_dump_output_to_dir(self):
         path = self.get_path('test_input/')
         path.mkdir()
-        dump_output(path, self.ga_data)
+        functions.dump_output(path, self.ga_data)
         self.assertTrue(path.joinpath('000.json').exists())
-        self.assertDictEqual(load_input_file(path.joinpath('000.json')), self.ga_data)
+        self.assertDictEqual(functions.load_input_file(path.joinpath('000.json')), self.ga_data)
         shutil.rmtree(path)

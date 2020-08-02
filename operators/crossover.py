@@ -23,7 +23,7 @@ import random
 from typing import List
 
 
-def single_point(a: List[float], b: List[float], **kwargs) -> (List[float], List[float]):
+def single_point(a: List[float], b: List[float], **_) -> (List[float], List[float]):
     """
     Crossover genes at a random cut point, e.g.
 
@@ -52,7 +52,7 @@ def single_point(a: List[float], b: List[float], **kwargs) -> (List[float], List
     )
 
 
-def blend(a: List[float], b: List[float], alpha=0.5, **kwargs) -> (List[float], List[float]):
+def blend(a: List[float], b: List[float], alpha=0.5, **_) -> (List[float], List[float]):
     """
     Blend gene numbers randomly within a range depended on parent genes
 
@@ -76,7 +76,7 @@ def blend(a: List[float], b: List[float], alpha=0.5, **kwargs) -> (List[float], 
     return offspring_1, offspring_2
 
 
-def sbx(a: List[float], b: List[float], eta=2, **kwargs) -> (List[float], List[float]):
+def sbx(a: List[float], b: List[float], eta=2, **_) -> (List[float], List[float]):
     """
     Simulated Binary Crossover
 
@@ -114,4 +114,3 @@ def sbx(a: List[float], b: List[float], eta=2, **kwargs) -> (List[float], List[f
         offspring_2.append(0.5 * ((1 - beta) * a[i] + (1 + beta) * b[i]))
 
     return offspring_1, offspring_2
-

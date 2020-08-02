@@ -19,9 +19,8 @@
 #
 
 import random
-
-from typing import TypeVar, List
 from copy import deepcopy
+from typing import TypeVar, List
 
 T = TypeVar('T')
 S = TypeVar('S')
@@ -31,6 +30,7 @@ def print_name(func):
     def wrapper(*args, **kwargs):
         print(func.__name__)
         return func(*args, **kwargs)
+
     return wrapper
 
 

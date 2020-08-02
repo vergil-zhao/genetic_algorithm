@@ -19,11 +19,11 @@
 #
 
 from unittest import TestCase
+
 from operators.scaling import *
 
 
 class TestScaling(TestCase):
-
     case = [1, 2, 3, 4, 5]
 
     def test_offset(self):

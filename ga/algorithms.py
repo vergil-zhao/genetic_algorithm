@@ -20,13 +20,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, Callable
 from collections import Iterable
+from typing import List, Optional, Callable
 
 from operators.utils import prettify_matrix
-
-from .genetic import Chromosome
 from .conf import Config
+from .genetic import Chromosome
 
 
 class GA(Iterable):

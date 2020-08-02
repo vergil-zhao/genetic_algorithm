@@ -1,6 +1,6 @@
-import operators.crossover as crs
-
 from unittest import TestCase
+
+import operators.crossover as crs
 
 
 class TestCrossover(TestCase):

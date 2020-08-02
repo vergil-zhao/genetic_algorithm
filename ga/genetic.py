@@ -21,11 +21,10 @@
 from __future__ import annotations
 
 import random
-
-from typing import List, Optional
 from collections import Iterable
-from operators.utils import repair
+from typing import List, Optional
 
+from operators.utils import repair
 from .conf import Config
 
 
@@ -78,7 +77,7 @@ class Chromosome(Iterable):
     def generate(self):
         """Generate and replace genes randomly"""
         self.genes = []
-        for _i in range(len(self.config.gene_pattern)):
+        for _ in range(len(self.config.gene_pattern)):
             self.genes.append(random.random())
 
     def mutate(self, **kwargs):

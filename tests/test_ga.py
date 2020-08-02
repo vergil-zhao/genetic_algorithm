@@ -1,8 +1,8 @@
 import unittest
 
+from ga.algorithms import GA, GAPassive
 from ga.conf import Config, FloatItem
 from ga.genetic import Chromosome
-from ga.algorithms import GA, GAPassive
 
 
 class TestGA(unittest.TestCase):

@@ -1,9 +1,8 @@
-import operators.elimination as elm
-
 from unittest import TestCase
-from ga.genetic import Chromosome
+
+import operators.elimination as elm
 from ga.conf import Config, FloatItem
-from operators.utils import print_name
+from ga.genetic import Chromosome
 
 
 class TestElimination(TestCase):
