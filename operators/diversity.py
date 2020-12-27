@@ -85,7 +85,7 @@ def divcon_b(items: list, hi: float = 2.0, lo: float = 0.5, trials: int = 3, **_
     rows, cols = np.shape(items)
     penalties = [0] * rows
 
-    for _t in range(trials):
+    for _ in range(trials):
         # create bins
         bin_num = round((lo + random() * (hi - lo)) * rows)
         bins = np.linspace(0, 1, bin_num + 1)

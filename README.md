@@ -112,6 +112,21 @@ Install locally by using python:
 python setup.py install
 ```
 
+To set the environment and run the tests, this project is using [Pipenv](https://docs.pipenv.org/) to manage packages:
+```shell script
+# install all dependencies
+pipenv install
+
+# change to the virtual environment
+pipenv shell
+```
+
+Then you can run tests by:
+```shell script
+# search and run tests automatically
+python -m unittest discover 
+```
+
 ## Use as a command
 
 ### Config

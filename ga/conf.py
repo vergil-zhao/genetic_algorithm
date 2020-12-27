@@ -87,7 +87,7 @@ class Config:
             mutation: Callable[[List[float], float, Any], List[float]] = mut.vector_abs,
             mutation_sigma: float = 0.2,
             mutation_range_shrink: bool = True,
-            divcon: Callable[[list], List[float]] = div.divcon_d,
+            divcon: Callable[[list], List[float]] = div.divcon_b,
             scale: Callable[[List[float]], List[float]] = scl.offset,
     ):
         """
